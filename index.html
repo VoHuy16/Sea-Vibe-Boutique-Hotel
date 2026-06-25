@@ -1,0 +1,2818 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sea Vibe Boutique Hotel</title>
+  <meta
+    name="description"
+    content="Landing page khách sạn boutique cao cấp với giao diện sang trọng, tinh tế và trải nghiệm liên hệ tư vấn hiện đại."
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    /* ===============================
+       Color System & Global Styles
+    =============================== */
+    :root {
+      --color-cream: #f7efe4;
+      --color-cream-deep: #ecdeca;
+      --color-surface: rgba(255, 250, 243, 0.82);
+      --color-surface-strong: #fffaf3;
+      --color-accent: #d47a3a;
+      --color-accent-deep: #b9652e;
+      --color-accent-soft: #f2c7a2;
+      --color-navy: #173247;
+      --color-navy-soft: #27485f;
+      --color-text: #312b27;
+      --color-muted: #6f665f;
+      --color-border: rgba(23, 50, 71, 0.12);
+      --color-white: #ffffff;
+      --shadow-soft: 0 18px 45px rgba(23, 50, 71, 0.08);
+      --shadow-medium: 0 24px 50px rgba(23, 50, 71, 0.12);
+      --shadow-strong: 0 32px 80px rgba(23, 50, 71, 0.17);
+      --radius-sm: 16px;
+      --radius-md: 24px;
+      --radius-lg: 34px;
+      --radius-xl: 42px;
+      --container: min(1180px, calc(100% - 2rem));
+      --header-height: 86px;
+      --transition: 0.35s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 100px;
+    }
+
+    body {
+      font-family: "Manrope", sans-serif;
+      color: var(--color-text);
+      background:
+        radial-gradient(circle at top left, rgba(212, 122, 58, 0.15), transparent 26%),
+        radial-gradient(circle at 90% 8%, rgba(23, 50, 71, 0.10), transparent 18%),
+        linear-gradient(180deg, #fbf6ef 0%, #f7efe4 38%, #fbf8f3 100%);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    body.menu-open {
+      overflow: hidden;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    .container {
+      width: var(--container);
+      margin-inline: auto;
+    }
+
+    .section {
+      padding: 5.5rem 0;
+      position: relative;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1.5rem;
+      margin-bottom: 2.8rem;
+    }
+
+    .section-header--center {
+      max-width: 780px;
+      margin: 0 auto 3rem;
+      text-align: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.55rem 1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(212, 122, 58, 0.25);
+      background: rgba(255, 255, 255, 0.6);
+      color: var(--color-accent-deep);
+      font-size: 0.82rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .section-tag::before {
+      content: "";
+      width: 0.45rem;
+      height: 0.45rem;
+      border-radius: 50%;
+      background: var(--color-accent);
+      box-shadow: 0 0 0 0.2rem rgba(212, 122, 58, 0.15);
+    }
+
+    .title {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2.35rem, 5vw, 4.9rem);
+      line-height: 0.96;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .section-title {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      line-height: 1;
+      font-weight: 600;
+      margin: 1rem 0 1rem;
+      letter-spacing: -0.02em;
+      color: var(--color-navy);
+    }
+
+    .section-description,
+    .text-muted {
+      color: var(--color-muted);
+      font-size: 1.02rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.7rem;
+      padding: 0.95rem 1.55rem;
+      border-radius: 999px;
+      font-weight: 700;
+      transition:
+        transform var(--transition),
+        box-shadow var(--transition),
+        background var(--transition),
+        color var(--transition),
+        border-color var(--transition);
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn--primary {
+      color: var(--color-white);
+      background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-deep) 100%);
+      box-shadow: 0 16px 36px rgba(212, 122, 58, 0.25);
+    }
+
+    .btn--primary:hover {
+      box-shadow: 0 22px 42px rgba(212, 122, 58, 0.3);
+    }
+
+    .btn--secondary {
+      color: var(--color-navy);
+      border: 1px solid rgba(23, 50, 71, 0.16);
+      background: rgba(255, 255, 255, 0.62);
+      backdrop-filter: blur(14px);
+    }
+
+    .btn--secondary:hover {
+      border-color: rgba(23, 50, 71, 0.28);
+      background: rgba(255, 255, 255, 0.86);
+    }
+
+    .btn--light {
+      color: var(--color-navy);
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.08);
+    }
+
+    .btn--light:hover {
+      background: var(--color-white);
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(18px);
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
+
+    .pill-list li {
+      padding: 0.65rem 0.95rem;
+      border-radius: 999px;
+      background: rgba(23, 50, 71, 0.08);
+      color: var(--color-navy);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition:
+        opacity 0.9s ease,
+        transform 0.9s ease;
+      will-change: transform, opacity;
+    }
+
+    .reveal--left {
+      transform: translateX(-44px);
+    }
+
+    .reveal--right {
+      transform: translateX(44px);
+    }
+
+    .reveal--scale {
+      transform: translateY(36px) scale(0.96);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translate(0, 0) scale(1);
+    }
+
+    .fade-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(23, 50, 71, 0.15), transparent);
+      margin-top: 4rem;
+    }
+
+    /* ===============================
+       Fixed Header
+    =============================== */
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto;
+      height: var(--header-height);
+      z-index: 1000;
+      transition:
+        background var(--transition),
+        border-color var(--transition),
+        box-shadow var(--transition),
+        backdrop-filter var(--transition);
+    }
+
+    .site-header.is-scrolled {
+      background: rgba(247, 239, 228, 0.72);
+      border-bottom: 1px solid rgba(23, 50, 71, 0.08);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 12px 30px rgba(23, 50, 71, 0.08);
+    }
+
+    .site-header__inner {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .brand__logo {
+      display: block;
+      width: auto;
+      height: 4.2rem;
+      object-fit: contain;
+      object-position: left center;
+      flex-shrink: 0;
+    }
+
+    .site-footer .brand__logo {
+      height: 5.2rem;
+    }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .site-nav__list {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+    }
+
+    .site-nav__list a {
+      position: relative;
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: var(--color-navy);
+      transition: color var(--transition);
+    }
+
+    .site-nav__list a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -0.3rem;
+      height: 2px;
+      border-radius: 999px;
+      background: var(--color-accent);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform var(--transition);
+    }
+
+    .site-nav__list a:hover::after,
+    .site-nav__list a:focus-visible::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .nav-toggle {
+      display: none;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 999px;
+      border: 1px solid rgba(23, 50, 71, 0.14);
+      background: rgba(255, 255, 255, 0.7);
+      color: var(--color-navy);
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .nav-toggle svg {
+      width: 1.4rem;
+      height: 1.4rem;
+    }
+
+    /* ===============================
+       Hero Section
+    =============================== */
+    .hero {
+      padding: calc(var(--header-height) + 3.6rem) 0 4rem;
+      position: relative;
+      overflow: clip;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(212, 122, 58, 0.14), transparent 32%),
+        radial-gradient(circle at 88% 12%, rgba(23, 50, 71, 0.14), transparent 28%);
+      pointer-events: none;
+    }
+
+    .hero__grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: 3.2rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero__content {
+      max-width: 620px;
+    }
+
+    .hero__description {
+      margin-top: 1.4rem;
+      font-size: 1.04rem;
+      color: var(--color-muted);
+      max-width: 580px;
+    }
+
+    .hero__actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.95rem;
+      margin: 2rem 0 2.3rem;
+    }
+
+    .hero__highlights {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      max-width: 640px;
+    }
+
+    .hero__highlight {
+      padding: 1.15rem 1rem;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(16px);
+    }
+
+    .hero__highlight strong {
+      display: block;
+      font-size: 1.35rem;
+      color: var(--color-navy);
+    }
+
+    .hero__highlight span {
+      font-size: 0.92rem;
+      color: var(--color-muted);
+    }
+
+    .hero__visual {
+      position: relative;
+      min-height: 640px;
+      display: grid;
+      align-items: center;
+    }
+
+    .hero__parallax {
+      max-width: 560px;
+      margin-left: auto;
+    }
+
+    .hero__photo-wrap {
+      position: relative;
+      animation: floatHero 7.5s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    .hero__photo-wrap::before {
+      content: "";
+      position: absolute;
+      width: 13rem;
+      height: 13rem;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212, 122, 58, 0.24), transparent 68%);
+      top: -2rem;
+      right: -2rem;
+      z-index: -1;
+    }
+
+    .hero__photo {
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-strong);
+      border: 1px solid rgba(255, 255, 255, 0.58);
+      position: relative;
+    }
+
+    .hero__photo img {
+      aspect-ratio: 0.84 / 1;
+      object-fit: cover;
+      object-position: center;
+      transform: scale(1.02);
+    }
+
+    .hero__mini-card,
+    .hero__badge {
+      position: absolute;
+      background: rgba(255, 250, 243, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.56);
+      backdrop-filter: blur(16px);
+      border-radius: 1.4rem;
+      box-shadow: var(--shadow-medium);
+    }
+
+    .hero__mini-card {
+      left: -1.6rem;
+      bottom: 2rem;
+      padding: 1.1rem 1.2rem;
+      min-width: 220px;
+    }
+
+    .hero__mini-card strong,
+    .hero__badge strong {
+      color: var(--color-navy);
+      display: block;
+    }
+
+    .hero__mini-card span,
+    .hero__badge span {
+      font-size: 0.92rem;
+      color: var(--color-muted);
+    }
+
+    .hero__badge {
+      top: 2rem;
+      right: -1.4rem;
+      padding: 1rem 1.15rem;
+      text-align: center;
+    }
+
+    /* ===============================
+       Quick Contact Form
+    =============================== */
+    .booking {
+      margin-top: -1.3rem;
+      padding-top: 0;
+    }
+
+    .booking__card {
+      padding: 1.4rem;
+      border-radius: 2rem;
+      background: rgba(255, 250, 243, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.74);
+      box-shadow: var(--shadow-strong);
+      backdrop-filter: blur(22px);
+    }
+
+    .booking__top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .booking__title {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(1.75rem, 3vw, 2.4rem);
+      color: var(--color-navy);
+    }
+
+    .booking__hint {
+      color: var(--color-muted);
+      font-size: 0.95rem;
+    }
+
+    .booking__form {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 1rem;
+      align-items: end;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .field label {
+      font-size: 0.88rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: var(--color-navy);
+      text-transform: uppercase;
+    }
+
+    .field input,
+    .field select {
+      min-height: 3.5rem;
+      padding: 0.9rem 1rem;
+      border-radius: 1.15rem;
+      border: 1px solid rgba(23, 50, 71, 0.12);
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--color-text);
+      outline: none;
+      transition:
+        border-color var(--transition),
+        box-shadow var(--transition),
+        transform var(--transition);
+    }
+
+    .field input:focus,
+    .field select:focus {
+      border-color: rgba(212, 122, 58, 0.6);
+      box-shadow: 0 0 0 0.25rem rgba(212, 122, 58, 0.12);
+      transform: translateY(-1px);
+    }
+
+    .booking__feedback {
+      margin-top: 1rem;
+      padding: 0 0.25rem;
+      font-size: 0.95rem;
+      color: var(--color-navy);
+      min-height: 1.5rem;
+    }
+
+    .booking__feedback.is-error {
+      color: #a53a27;
+    }
+
+    /* ===============================
+       About Section
+    =============================== */
+    .about__grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .about__visual {
+      position: relative;
+      min-height: 560px;
+    }
+
+    .about__image-main,
+    .about__image-secondary {
+      overflow: hidden;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-medium);
+      border: 1px solid rgba(255, 255, 255, 0.55);
+    }
+
+    .about__image-main {
+      max-width: 92%;
+      margin-left: auto;
+    }
+
+    .about__image-main img {
+      aspect-ratio: 0.9 / 1.08;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .about__image-secondary {
+      position: absolute;
+      left: 0;
+      bottom: 1.5rem;
+      width: min(260px, 62%);
+    }
+
+    .about__image-secondary img {
+      aspect-ratio: 0.95 / 1;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .about__experience {
+      position: absolute;
+      right: 0.4rem;
+      bottom: -1.2rem;
+      padding: 1.25rem 1.3rem;
+      max-width: 220px;
+    }
+
+    .about__experience strong {
+      display: block;
+      font-size: 2rem;
+      color: var(--color-navy);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .about__copy p + p {
+      margin-top: 1rem;
+    }
+
+    .about__feature-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .about__feature {
+      padding: 1.15rem 1.1rem;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .about__feature strong {
+      display: block;
+      color: var(--color-navy);
+      margin-bottom: 0.35rem;
+    }
+
+    /* ===============================
+       Room Cards
+    =============================== */
+    .rooms {
+      overflow: hidden;
+    }
+
+    .rooms__grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+
+    .room-card {
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition:
+        transform var(--transition),
+        box-shadow var(--transition);
+    }
+
+    .room-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-strong);
+    }
+
+    .room-card__media {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .room-card__media img {
+      aspect-ratio: 1.08 / 0.88;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+
+    .room-card:hover .room-card__media img {
+      transform: scale(1.06);
+    }
+
+    .room-card__badge {
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      padding: 0.5rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(23, 50, 71, 0.76);
+      color: var(--color-white);
+      font-size: 0.82rem;
+      font-weight: 700;
+      backdrop-filter: blur(12px);
+    }
+
+    .room-card__body {
+      padding: 1.35rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      flex: 1;
+    }
+
+    .room-card__head {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .room-card__title {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.9rem;
+      line-height: 1;
+      color: var(--color-navy);
+    }
+
+    .room-card__price {
+      text-align: right;
+      color: var(--color-navy);
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .room-card__price small {
+      display: block;
+      font-size: 0.76rem;
+      color: var(--color-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.2rem;
+    }
+
+    .room-card__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      color: var(--color-muted);
+      font-size: 0.93rem;
+      font-weight: 600;
+    }
+
+    .room-card__meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .room-card__meta svg {
+      width: 1rem;
+      height: 1rem;
+      color: var(--color-accent);
+      flex-shrink: 0;
+    }
+
+    .room-card__footer {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    /* ===============================
+       Amenities Grid
+    =============================== */
+    .amenities__grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.2rem;
+    }
+
+    .amenity-card {
+      padding: 1.4rem;
+      transition:
+        transform var(--transition),
+        box-shadow var(--transition),
+        border-color var(--transition);
+    }
+
+    .amenity-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-medium);
+      border-color: rgba(212, 122, 58, 0.24);
+    }
+
+    .amenity-card__icon {
+      width: 3.15rem;
+      height: 3.15rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 1rem;
+      background: linear-gradient(135deg, rgba(212, 122, 58, 0.15), rgba(23, 50, 71, 0.12));
+      color: var(--color-accent);
+      margin-bottom: 1rem;
+    }
+
+    .amenity-card__icon svg {
+      width: 1.4rem;
+      height: 1.4rem;
+      stroke: currentColor;
+    }
+
+    .amenity-card h3 {
+      margin-bottom: 0.45rem;
+      color: var(--color-navy);
+      font-size: 1.08rem;
+    }
+
+    /* ===============================
+       Experience Section
+    =============================== */
+    .experience {
+      color: var(--color-white);
+      overflow: hidden;
+    }
+
+    .experience::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(23, 50, 71, 0.93), rgba(23, 50, 71, 0.82)),
+        url("https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1800&q=80") center/cover;
+      z-index: -2;
+    }
+
+    .experience::after {
+      content: "";
+      position: absolute;
+      inset: auto -8rem -8rem auto;
+      width: 18rem;
+      height: 18rem;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212, 122, 58, 0.35), transparent 70%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .experience__grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, 400px);
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .experience .section-title,
+    .experience .section-description {
+      color: var(--color-white);
+    }
+
+    .experience__list {
+      display: grid;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .experience__item {
+      display: flex;
+      align-items: start;
+      gap: 0.95rem;
+      padding: 1.15rem 1.25rem;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(18px);
+    }
+
+    .experience__item span {
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: 999px;
+      display: inline-grid;
+      place-items: center;
+      font-weight: 800;
+      color: var(--color-white);
+      background: rgba(212, 122, 58, 0.92);
+      flex-shrink: 0;
+    }
+
+    .experience__note {
+      padding: 1.6rem;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 2rem;
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow-medium);
+    }
+
+    .experience__note strong {
+      display: block;
+      font-size: 3rem;
+      font-family: "Cormorant Garamond", serif;
+      line-height: 0.9;
+      margin-bottom: 0.6rem;
+    }
+
+    /* ===============================
+       Gallery
+    =============================== */
+    .gallery__grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .gallery__item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1.9rem;
+      box-shadow: var(--shadow-soft);
+      min-height: 240px;
+      border: 1px solid rgba(255, 255, 255, 0.62);
+      background: #d8cbbb;
+    }
+
+    .gallery__item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s ease;
+    }
+
+    .gallery__item:hover img {
+      transform: scale(1.06);
+    }
+
+    .gallery__item::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 45%;
+      background: linear-gradient(180deg, transparent, rgba(23, 50, 71, 0.42));
+      pointer-events: none;
+    }
+
+    .gallery__caption {
+      position: absolute;
+      inset: auto 1.2rem 1rem;
+      color: var(--color-white);
+      z-index: 1;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .gallery__item--a {
+      grid-column: span 5;
+      min-height: 420px;
+    }
+
+    .gallery__item--b {
+      grid-column: span 4;
+      min-height: 250px;
+    }
+
+    .gallery__item--c {
+      grid-column: span 3;
+      min-height: 250px;
+    }
+
+    .gallery__item--d {
+      grid-column: span 3;
+      min-height: 250px;
+    }
+
+    .gallery__item--e {
+      grid-column: span 4;
+      min-height: 250px;
+    }
+
+    .gallery__item--f {
+      grid-column: span 5;
+      min-height: 420px;
+    }
+
+    /* ===============================
+       Testimonials
+    =============================== */
+    .testimonials__grid {
+      display: flex;
+      gap: 1.3rem;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      cursor: grab;
+      user-select: none;
+      touch-action: pan-x;
+    }
+
+    .testimonials__grid::-webkit-scrollbar {
+      display: none;
+    }
+
+    .testimonials__grid.is-dragging {
+      cursor: grabbing;
+      scroll-behavior: auto;
+      scroll-snap-type: none;
+    }
+
+    .testimonials__grid.is-dragging .testimonial {
+      transform: scale(0.985);
+      transition: transform 0.18s ease;
+    }
+
+    .testimonial {
+      flex: 0 0 calc((100% - 3.25rem) / 3.5);
+      padding: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      scroll-snap-align: start;
+    }
+
+    .testimonial__stars {
+      color: var(--color-accent);
+      letter-spacing: 0.2em;
+      font-size: 0.94rem;
+      font-weight: 800;
+    }
+
+    .testimonial blockquote {
+      font-size: 1.02rem;
+      color: var(--color-text);
+    }
+
+    .testimonial__author {
+      margin-top: auto;
+      padding-top: 0.8rem;
+      border-top: 1px solid rgba(23, 50, 71, 0.08);
+    }
+
+    .testimonial__author strong {
+      display: block;
+      color: var(--color-navy);
+    }
+
+    .testimonial__author span {
+      color: var(--color-muted);
+      font-size: 0.92rem;
+    }
+
+    .testimonials__carousel {
+      position: relative;
+    }
+
+    .testimonials__controls {
+      position: absolute;
+      inset: 50% auto auto 0;
+      z-index: 3;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+      transform: translateY(-50%);
+    }
+
+    .testimonials__control {
+      width: 3rem;
+      height: 3rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      border: 1px solid rgba(23, 50, 71, 0.12);
+      background: rgba(255, 250, 243, 0.82);
+      color: var(--color-navy);
+      box-shadow: var(--shadow-soft);
+      font-size: 1.35rem;
+      font-weight: 800;
+      pointer-events: auto;
+      transition:
+        transform var(--transition),
+        background var(--transition),
+        color var(--transition),
+        border-color var(--transition);
+    }
+
+    .testimonials__control:first-child {
+      transform: translateX(-1.5rem);
+    }
+
+    .testimonials__control:last-child {
+      transform: translateX(1.5rem);
+    }
+
+    .testimonials__control:hover {
+      border-color: rgba(212, 122, 58, 0.32);
+      background: var(--color-accent);
+      color: var(--color-white);
+    }
+
+    .testimonials__control:first-child:hover {
+      transform: translateX(-1.5rem) translateY(-2px);
+    }
+
+    .testimonials__control:last-child:hover {
+      transform: translateX(1.5rem) translateY(-2px);
+    }
+
+    /* ===============================
+       Final CTA / Contact
+    =============================== */
+    .cta {
+      padding-top: 3rem;
+    }
+
+    .cta__panel {
+      position: relative;
+      overflow: hidden;
+      padding: 2.2rem;
+      border-radius: 2.2rem;
+      background:
+        linear-gradient(125deg, rgba(23, 50, 71, 0.96) 0%, rgba(39, 72, 95, 0.94) 54%, rgba(212, 122, 58, 0.88) 100%);
+      color: var(--color-white);
+      box-shadow: var(--shadow-strong);
+    }
+
+    .cta__panel::before,
+    .cta__panel::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .cta__panel::before {
+      width: 14rem;
+      height: 14rem;
+      right: -5rem;
+      top: -4rem;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .cta__panel::after {
+      width: 10rem;
+      height: 10rem;
+      left: -3rem;
+      bottom: -3rem;
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .cta__grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta__title {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2.25rem, 4.2vw, 3.85rem);
+      line-height: 0.98;
+      margin: 1rem 0;
+    }
+
+    .cta__card {
+      padding: 1.5rem;
+      border-radius: 1.6rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(14px);
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 0.95rem;
+      margin-top: 1rem;
+    }
+
+    .contact-list li strong {
+      display: block;
+      font-size: 0.85rem;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      opacity: 0.78;
+      margin-bottom: 0.18rem;
+    }
+
+    .contact-list li span {
+      font-size: 1rem;
+    }
+
+    /* ===============================
+       Footer
+    =============================== */
+    .site-footer {
+      padding: 2.2rem 0 2.8rem;
+      color: var(--color-navy);
+    }
+
+    .site-footer__grid {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr 1fr 1fr;
+      gap: 1.5rem;
+      padding: 1.8rem 0 1.6rem;
+    }
+
+    .footer__title {
+      font-size: 0.92rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.9rem;
+      color: var(--color-navy);
+    }
+
+    .footer-links,
+    .footer-contact {
+      display: grid;
+      gap: 0.55rem;
+      color: var(--color-muted);
+    }
+
+    .footer-social {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .footer-social a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.6rem;
+      height: 2.6rem;
+      border-radius: 999px;
+      background: rgba(23, 50, 71, 0.08);
+      transition:
+        transform var(--transition),
+        background var(--transition),
+        color var(--transition);
+    }
+
+    .footer-social a:hover {
+      transform: translateY(-2px);
+      background: var(--color-accent);
+      color: var(--color-white);
+    }
+
+    .site-footer__bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(23, 50, 71, 0.1);
+      color: var(--color-muted);
+      font-size: 0.94rem;
+    }
+
+    /* ===============================
+       Keyframes & Utility
+    =============================== */
+    @keyframes floatHero {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-14px);
+      }
+    }
+
+    @keyframes bounceArrow {
+      0%, 100% {
+        transform: translateX(-2.15rem) rotate(45deg) translateY(0);
+      }
+      50% {
+        transform: translateX(-2.15rem) rotate(45deg) translateY(4px);
+      }
+    }
+
+    /* ===============================
+       Responsive
+    =============================== */
+    @media (max-width: 1080px) {
+      :root {
+        --header-height: 78px;
+      }
+
+      .hero__grid,
+      .about__grid,
+      .experience__grid,
+      .cta__grid,
+      .site-footer__grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero__visual {
+        min-height: auto;
+      }
+
+      .hero__photo-wrap {
+        max-width: 100%;
+        margin: 0 auto;
+      }
+
+      .hero__photo img {
+        aspect-ratio: 1.08 / 1;
+      }
+
+      .booking__form,
+      .rooms__grid,
+      .amenities__grid,
+      .testimonials__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .gallery__item--a,
+      .gallery__item--f {
+        grid-column: span 6;
+      }
+
+      .gallery__item--b,
+      .gallery__item--c,
+      .gallery__item--d,
+      .gallery__item--e {
+        grid-column: span 6;
+      }
+
+      .site-footer__grid {
+        gap: 2rem;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .nav-toggle {
+        display: inline-flex;
+        border-color: rgba(212, 122, 58, 0.5);
+        background: rgba(255, 250, 243, 0.92);
+        box-shadow:
+          0 0 0 0.18rem rgba(212, 122, 58, 0.18),
+          0 16px 30px rgba(23, 50, 71, 0.12);
+      }
+
+      .site-nav {
+        position: fixed;
+        top: calc(var(--header-height) + 0.8rem);
+        left: 1rem;
+        right: 1rem;
+        padding: 1.15rem;
+        border-radius: 1.8rem;
+        background:
+          linear-gradient(145deg, rgba(255, 250, 243, 0.98), rgba(247, 239, 228, 0.94));
+        border: 1px solid rgba(255, 255, 255, 0.72);
+        box-shadow: var(--shadow-strong);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.9rem;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-12px);
+        pointer-events: none;
+        transition:
+          opacity var(--transition),
+          transform var(--transition),
+          visibility var(--transition);
+      }
+
+      .site-nav.is-open {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+
+      .site-nav__list {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.45rem;
+      }
+
+      .site-nav__list a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 0.95rem 1.05rem;
+        border-radius: 1rem;
+        background: rgba(255, 255, 255, 0.56);
+        color: var(--color-navy);
+        box-shadow: inset 0 0 0 1px rgba(23, 50, 71, 0.04);
+      }
+
+      .site-nav__list a::after {
+        position: static;
+        width: 0.42rem;
+        height: 0.42rem;
+        border-right: 2px solid rgba(212, 122, 58, 0.75);
+        border-bottom: 2px solid rgba(212, 122, 58, 0.75);
+        background: transparent;
+        transform: rotate(-45deg);
+        transform-origin: center;
+      }
+
+      .site-nav__list a:hover,
+      .site-nav__list a:focus-visible {
+        background: rgba(255, 255, 255, 0.86);
+        box-shadow: inset 0 0 0 1px rgba(212, 122, 58, 0.18);
+      }
+
+      .site-nav__list a:hover::after,
+      .site-nav__list a:focus-visible::after {
+        transform: rotate(-45deg) translateX(2px);
+      }
+
+      .site-nav__cta {
+        width: 100%;
+        min-height: 3.5rem;
+        margin-top: 0.25rem;
+        border-radius: 1.2rem;
+      }
+
+      .section {
+        padding: 4.8rem 0;
+      }
+
+      .hero {
+        padding-top: calc(var(--header-height) + 2.8rem);
+      }
+
+      .hero__highlights,
+      .about__feature-list {
+        grid-template-columns: 1fr;
+      }
+
+      .booking__top,
+      .section-header,
+      .site-footer__bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero__mini-card {
+        left: 0.8rem;
+      }
+
+      .hero__badge {
+        right: 0.8rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        width: min(100% - 1.2rem, 1180px);
+      }
+
+      .brand__logo {
+        height: 3.7rem;
+      }
+
+      .room-card__footer {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .hero__actions {
+        flex-wrap: nowrap;
+        align-items: stretch;
+      }
+
+      .hero__actions .btn {
+        flex: 1 1 0;
+        min-width: 0;
+        padding-inline: 0.85rem;
+      }
+
+      .hero__highlights,
+      .booking__form,
+      .rooms__grid {
+        grid-template-columns: 1fr;
+      }
+
+      .testimonials__grid {
+        gap: 0.75rem;
+        overscroll-behavior-x: contain;
+        padding: 0.2rem 0.05rem 1rem;
+        scroll-padding-left: 0.05rem;
+      }
+
+      .testimonials__controls {
+        display: none;
+      }
+
+      .testimonial {
+        flex: 0 0 calc((100% - 1.5rem) / 1.65);
+        padding: 1.15rem;
+        border-radius: 1.35rem;
+        gap: 0.75rem;
+      }
+
+      .testimonial__stars {
+        font-size: 0.82rem;
+        letter-spacing: 0.16em;
+      }
+
+      .testimonial blockquote {
+        font-size: 0.92rem;
+        line-height: 1.65;
+      }
+
+      .testimonial__author {
+        padding-top: 0.65rem;
+      }
+
+      .testimonial__author strong {
+        font-size: 0.96rem;
+      }
+
+      .testimonial__author span {
+        font-size: 0.86rem;
+      }
+
+      .amenities__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.8rem;
+      }
+
+      .amenity-card {
+        padding: 1rem;
+        border-radius: 1.25rem;
+      }
+
+      .amenity-card__icon {
+        width: 2.7rem;
+        height: 2.7rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .amenity-card h3 {
+        font-size: 1rem;
+      }
+
+      .amenity-card .text-muted {
+        font-size: 0.9rem;
+        line-height: 1.55;
+      }
+
+      .hero__visual {
+        padding-bottom: 0;
+      }
+
+      .hero__parallax {
+        width: 100%;
+        transform: none !important;
+      }
+
+      .hero__photo {
+        border-radius: 1.65rem;
+      }
+
+      .hero__photo img {
+        aspect-ratio: 0.84 / 1;
+        transform: none;
+      }
+
+      .hero__photo-wrap {
+        display: block;
+        position: relative;
+        padding-bottom: 0;
+        animation: none;
+      }
+
+      .hero__mini-card,
+      .hero__badge {
+        position: absolute;
+        z-index: 2;
+        padding: 1.25rem 1.3rem;
+        border-radius: 1.35rem;
+        background: rgba(255, 250, 243, 0.9);
+        box-shadow: 0 16px 38px rgba(23, 50, 71, 0.12);
+      }
+
+      .hero__mini-card {
+        left: clamp(-1.25rem, -3vw, -0.65rem);
+        right: clamp(-1.25rem, -3vw, -0.65rem);
+        bottom: 1.9rem;
+        min-width: 0;
+      }
+
+      .hero__badge {
+        top: 1.8rem;
+        right: clamp(-1.15rem, -2.6vw, -0.5rem);
+        width: min(calc(100% - 3.4rem), 23rem);
+        text-align: center;
+      }
+
+      .hero__mini-card strong,
+      .hero__badge strong {
+        margin-bottom: 0.35rem;
+      }
+
+      .about__copy {
+        order: 1;
+      }
+
+      .about__visual {
+        order: 2;
+        min-height: 610px;
+        display: block;
+        margin-top: 0.75rem;
+      }
+
+      .about__copy .section-title {
+        font-size: 2.2rem;
+        line-height: 1.04;
+      }
+
+      .about__copy .section-tag {
+        max-width: 100%;
+      }
+
+      .about__image-main {
+        max-width: 100%;
+        margin-left: 0;
+        border-radius: 1.85rem;
+      }
+
+      .about__image-main img {
+        aspect-ratio: 0.88 / 1;
+        object-position: center;
+      }
+
+      .about__image-secondary {
+        position: absolute;
+        left: -0.2rem;
+        bottom: 2.9rem;
+        width: 54%;
+        border-radius: 1.65rem;
+        z-index: 2;
+      }
+
+      .about__image-secondary img {
+        aspect-ratio: 1 / 1;
+      }
+
+      .about__experience {
+        position: absolute;
+        right: -0.1rem;
+        bottom: 0;
+        width: min(48%, 14rem);
+        max-width: none;
+        padding: 1.15rem 1.25rem;
+        border-radius: 1.65rem;
+        z-index: 3;
+        background: rgba(255, 250, 243, 0.86);
+      }
+
+      .about__experience strong {
+        font-size: 2.25rem;
+      }
+
+      .gallery__grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery__item--a,
+      .gallery__item--b,
+      .gallery__item--c,
+      .gallery__item--d,
+      .gallery__item--e,
+      .gallery__item--f {
+        grid-column: auto;
+        min-height: 260px;
+      }
+
+      @media (max-width: 420px) {
+        .about__visual {
+          min-height: 560px;
+        }
+
+        .about__image-secondary {
+          width: 56%;
+          bottom: 3.35rem;
+        }
+
+        .about__experience {
+          width: 50%;
+          padding: 1rem;
+        }
+
+        .about__experience strong {
+          font-size: 2rem;
+        }
+      }
+
+      .cta__panel {
+        padding: 1.5rem;
+      }
+
+      .site-footer {
+        padding-top: 1rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition-duration: 0.01ms !important;
+        transition-delay: 0ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ===============================
+       Fixed Header
+  ================================ -->
+  <header class="site-header" id="home">
+    <div class="container site-header__inner">
+      <a href="#home" class="brand" aria-label="Sea Vibe Boutique Hotel">
+        <img class="brand__logo" src="assets/sea-vibe-logo-inline.png" alt="Sea Vibe Boutique Hotel">
+      </a>
+
+      <button class="nav-toggle" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="site-nav">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 7H20M4 12H20M4 17H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </svg>
+      </button>
+
+      <nav class="site-nav" id="site-nav">
+        <ul class="site-nav__list">
+          <li><a href="#home">Trang chủ</a></li>
+          <li><a href="#about">Giới thiệu</a></li>
+          <li><a href="#rooms">Phòng</a></li>
+          <li><a href="#amenities">Tiện nghi</a></li>
+          <li><a href="#gallery">Thư viện</a></li>
+          <li><a href="#testimonials">Đánh giá</a></li>
+        </ul>
+        <a class="btn btn--primary site-nav__cta" href="#contact">Liên hệ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===============================
+         Hero Section
+    ================================ -->
+    <section class="hero section">
+      <div class="container hero__grid">
+        <div class="hero__content reveal reveal--left">
+          <h1 class="title">Chạm vào trải nghiệm lưu trú đẳng cấp, riêng tư và đầy tinh tế.</h1>
+          <p class="hero__description">
+            Tại <strong>Sea Vibe Boutique Hotel</strong>, Mỗi khoảnh khắc đều được chăm chút tỉ mỉ để mang đến một kỳ nghỉ sang trọng và thư thái, giúp bạn lưu giữ những kỷ niệm đáng nhớ.
+          </p>
+
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#quick-contact">Đặt phòng ngay</a>
+            <a class="btn btn--secondary" href="#rooms">Khám phá phòng</a>
+          </div>
+
+          <div class="hero__highlights">
+            <div class="hero__highlight">
+              <strong>4.9/5</strong>
+              <span>Đánh giá trải nghiệm lưu trú xuất sắc</span>
+            </div>
+            <div class="hero__highlight">
+              <strong>24/7</strong>
+              <span>Lễ tân và concierge luôn sẵn sàng hỗ trợ</span>
+            </div>
+            <div class="hero__highlight">
+              <strong>3 phút</strong>
+              <span>Kết nối nhanh đến điểm trung tâm và sân bay</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="hero__visual reveal reveal--right">
+          <div class="hero__parallax" data-parallax data-speed="0.12">
+            <div class="hero__photo-wrap">
+              <div class="hero__photo">
+                <img
+                  src="assets/sea-vibe-building.webp"
+                  alt="Sea Vibe Boutique Hotel"
+                  loading="eager"
+                >
+              </div>
+              <div class="hero__mini-card">
+                <strong>Suite hướng phố & hồ bơi</strong>
+                <span>Thiết kế mềm mại, ánh sáng tự nhiên và tiện nghi cao cấp cho kỳ nghỉ trọn vẹn.</span>
+              </div>
+              <div class="hero__badge">
+                <strong>Private Retreat</strong>
+                <span>Không gian tinh gọn, riêng tư và giàu cảm hứng</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===============================
+         Quick Contact Form
+    ================================ -->
+    <section class="booking section" id="quick-contact">
+      <div class="container">
+        <div class="booking__card reveal reveal--scale">
+          <div class="booking__top">
+            <div>
+              <h2 class="booking__title">Liên hệ tư vấn lưu trú</h2>
+              <p class="booking__hint">Để lại thông tin, đội ngũ khách sạn sẽ tư vấn hạng phòng và ưu đãi phù hợp.</p>
+            </div>
+            <span class="section-tag">Personal Support</span>
+          </div>
+
+          <form class="booking__form" id="contactForm">
+            <div class="field">
+              <label for="contactName">Họ và tên</label>
+              <input type="text" id="contactName" name="name" placeholder="Tên của bạn" required>
+            </div>
+
+            <div class="field">
+              <label for="contactPhone">Số điện thoại</label>
+              <input type="tel" id="contactPhone" name="phone" placeholder="[Số điện thoại]" required>
+            </div>
+
+            <div class="field">
+              <label for="contactEmail">Email</label>
+              <input type="email" id="contactEmail" name="email" placeholder="[Email]">
+            </div>
+
+            <div class="field">
+              <label for="contactNeed">Nhu cầu</label>
+              <select id="contactNeed" name="need">
+                <option value="Tư vấn hạng phòng">Tư vấn hạng phòng</option>
+                <option value="Báo giá lưu trú">Báo giá lưu trú</option>
+                <option value="Tư vấn sự kiện">Tư vấn sự kiện</option>
+                <option value="Dịch vụ nghỉ dưỡng">Dịch vụ nghỉ dưỡng</option>
+              </select>
+            </div>
+
+            <button class="btn btn--primary" type="submit">Gửi liên hệ</button>
+          </form>
+
+          <p class="booking__feedback" id="contactFeedback" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===============================
+         About Section
+    ================================ -->
+    <section class="section" id="about">
+      <div class="container about__grid">
+        <div class="about__visual reveal reveal--left">
+          <div class="about__image-main">
+            <img
+              src="https://images.unsplash.com/photo-1522798514-97ceb8c4f1c8?auto=format&fit=crop&w=1200&q=80"
+              alt="Sảnh khách sạn cao cấp với thiết kế sang trọng"
+              loading="lazy"
+            >
+          </div>
+          <div class="about__image-secondary">
+            <img
+              src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=900&q=80"
+              alt="Phòng nghỉ boutique với nội thất ấm áp"
+              loading="lazy"
+            >
+          </div>
+          <div class="about__experience card">
+            <strong>12+</strong>
+            <span>Năm chăm chút trải nghiệm lưu trú chỉn chu và đẳng cấp cho từng vị khách.</span>
+          </div>
+        </div>
+
+        <div class="about__copy reveal reveal--right">
+          <span class="section-tag">Giới thiệu khách sạn</span>
+          <h2 class="section-title">Không gian được thiết kế để mỗi kỳ nghỉ trở thành một dấu ấn đáng nhớ.</h2>
+          <p class="section-description">
+            <strong>Sea Vibe Boutique Hotel</strong> kết hợp giữa chất boutique hiện đại và sự ấm áp của dịch vụ cá nhân hóa.
+            Mỗi không gian đều được cân chỉnh để mang lại cảm giác thư thái, riêng tư và sang trọng vừa đủ.
+          </p>
+          <p class="section-description">
+            Từ những chuyến công tác cần sự hiệu quả, kỳ nghỉ gia đình cần tiện nghi đến những kỳ lưu trú lãng mạn dành cho cặp đôi,
+            chúng tôi tạo nên trải nghiệm mềm mại, yên tĩnh và đậm chất nghỉ dưỡng ngay giữa nhịp sống sôi động.
+          </p>
+
+          <div class="about__feature-list">
+            <div class="about__feature">
+              <strong>Vị trí thuận tiện</strong>
+              <p class="text-muted">Dễ dàng kết nối trung tâm thành phố, sân bay và các điểm tham quan nổi bật.</p>
+            </div>
+            <div class="about__feature">
+              <strong>Dịch vụ chuyên nghiệp</strong>
+              <p class="text-muted">Đội ngũ phục vụ tinh tế, phản hồi nhanh, cá nhân hóa theo nhu cầu lưu trú.</p>
+            </div>
+            <div class="about__feature">
+              <strong>Thiết kế sang trọng</strong>
+              <p class="text-muted">Vật liệu ấm, ánh sáng mềm và bảng màu cao cấp tạo cảm giác thư giãn dài lâu.</p>
+            </div>
+            <div class="about__feature">
+              <strong>Không gian riêng tư</strong>
+              <p class="text-muted">Bố cục thoáng, yên tĩnh, phù hợp cho nghỉ dưỡng, công tác và retreat ngắn ngày.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===============================
+         Room Types
+    ================================ -->
+    <section class="section rooms" id="rooms">
+      <div class="container">
+        <div class="section-header section-header--center reveal">
+          <span class="section-tag">Hạng phòng nổi bật</span>
+          <h2 class="section-title">Lựa chọn không gian lưu trú phù hợp với phong cách nghỉ dưỡng của bạn</h2>
+          <p class="section-description">
+            Từ những căn phòng ấm áp cho chuyến đi ngắn ngày đến suite cao cấp cho kỳ nghỉ trọn vẹn, mọi chi tiết đều được hoàn thiện tinh tế.
+          </p>
+        </div>
+
+        <div class="rooms__grid">
+          <article class="room-card card reveal reveal--scale">
+            <div class="room-card__media">
+              <img
+                src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80"
+                alt="Phòng Deluxe Room"
+                loading="lazy"
+              >
+              <span class="room-card__badge">Phổ biến</span>
+            </div>
+            <div class="room-card__body">
+              <div class="room-card__head">
+                <div>
+                  <h3 class="room-card__title">Deluxe Room</h3>
+                  <p class="text-muted">Thiết kế tối giản sang trọng, lý tưởng cho cặp đôi hoặc khách công tác.</p>
+                </div>
+                <div class="room-card__price">
+                  <small>Giá từ</small>
+                  2.490.000đ
+                </div>
+              </div>
+
+              <div class="room-card__meta">
+                <span>
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 7H20V19H4V7Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+                    <path d="M4 11H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                    <path d="M9 7V4H15V7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  38m²
+                </span>
+                <span>
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 12H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                    <path d="M6 12V8.5C6 7.119 7.119 6 8.5 6H15.5C16.881 6 18 7.119 18 8.5V12" stroke="currentColor" stroke-width="1.8" />
+                    <path d="M5 18V15.5C5 14.119 6.119 13 7.5 13H16.5C17.881 13 19 14.119 19 15.5V18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                  </svg>
+                  1 giường King
+                </span>
+              </div>
+
+              <ul class="pill-list">
+                <li>Ban công riêng</li>
+                <li>Bồn tắm</li>
+                <li>Minibar</li>
+              </ul>
+
+              <div class="room-card__footer">
+                <span class="text-muted">Giá / đêm, đã gồm bữa sáng</span>
+                <a class="btn btn--primary" href="#quick-contact">Liên hệ</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="room-card card reveal reveal--scale">
+            <div class="room-card__media">
+              <img
+                src="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?auto=format&fit=crop&w=1200&q=80"
+                alt="Phòng Premium Suite"
+                loading="lazy"
+              >
+              <span class="room-card__badge">Signature</span>
+            </div>
+            <div class="room-card__body">
+              <div class="room-card__head">
+                <div>
+                  <h3 class="room-card__title">Premium Suite</h3>
+                  <p class="text-muted">Không gian sang trọng với khu lounge riêng, phù hợp cho kỳ nghỉ nghỉ dưỡng cao cấp.</p>
+                </div>
+                <div class="room-card__price">
+                  <small>Giá từ</small>
+                  4.290.000đ
+                </div>
+              </div>
+
+              <div class="room-card__meta">
+                <span>
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 7H20V19H4V7Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+                    <path d="M4 11H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                    <path d="M9 7V4H15V7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  56m²
+                </span>
+                <span>
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 12H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                    <path d="M6 12V8.5C6 7.119 7.119 6 8.5 6H15.5C16.881 6 18 7.119 18 8.5V12" stroke="currentColor" stroke-width="1.8" />
+                    <path d="M5 18V15.5C5 14.119 6.119 13 7.5 13H16.5C17.881 13 19 14.119 19 15.5V18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                  </svg>
+                  1 giường Super King
+                </span>
+              </div>
+
+              <ul class="pill-list">
+                <li>Phòng khách riêng</li>
+                <li>Bồn tắm view mở</li>
+                <li>Welcome set</li>
+              </ul>
+
+              <div class="room-card__footer">
+                <span class="text-muted">Giá / đêm, linh hoạt theo mùa</span>
+                <a class="btn btn--primary" href="#quick-contact">Liên hệ</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="room-card card reveal reveal--scale">
+            <div class="room-card__media">
+              <img
+                src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80"
+                alt="Phòng Family Suite"
+                loading="lazy"
+              >
+              <span class="room-card__badge">Family Choice</span>
+            </div>
+            <div class="room-card__body">
+              <div class="room-card__head">
+                <div>
+                  <h3 class="room-card__title">Family Suite</h3>
+                  <p class="text-muted">Bố cục rộng rãi, tối ưu sự tiện nghi cho gia đình hoặc nhóm bạn thân thiết.</p>
+                </div>
+                <div class="room-card__price">
+                  <small>Giá từ</small>
+                  5.690.000đ
+                </div>
+              </div>
+
+              <div class="room-card__meta">
+                <span>
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 7H20V19H4V7Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+                    <path d="M4 11H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                    <path d="M9 7V4H15V7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  74m²
+                </span>
+                <span>
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M12 5V19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                    <path d="M6 9V17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                    <path d="M18 9V17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                  </svg>
+                  2 khu ngủ linh hoạt
+                </span>
+              </div>
+
+              <ul class="pill-list">
+                <li>Bàn ăn nhỏ</li>
+                <li>Sofa lounge</li>
+                <li>Không gian cho trẻ em</li>
+              </ul>
+
+              <div class="room-card__footer">
+                <span class="text-muted">Giá / đêm, phù hợp gia đình</span>
+                <a class="btn btn--primary" href="#quick-contact">Liên hệ</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===============================
+         Amenities
+    ================================ -->
+    <section class="section" id="amenities">
+      <div class="container">
+        <div class="section-header section-header--center reveal">
+          <span class="section-tag">Tiện nghi cao cấp</span>
+          <h2 class="section-title">Những dịch vụ được chăm chút để nâng tầm mỗi phút giây lưu trú</h2>
+          <p class="section-description">
+            Mọi tiện ích đều được thiết kế theo tinh thần sang trọng vừa đủ, hữu dụng và mang lại cảm giác nghỉ dưỡng trọn vẹn.
+          </p>
+        </div>
+
+        <div class="amenities__grid">
+          <article class="amenity-card card reveal">
+            <span class="amenity-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 10H20V18H4V10Z" stroke-width="1.8" stroke-linejoin="round" />
+                <path d="M7 10V7.5C7 6.119 8.119 5 9.5 5H14.5C15.881 5 17 6.119 17 7.5V10" stroke-width="1.8" />
+              </svg>
+            </span>
+            <h3>Nhà hàng</h3>
+            <p class="text-muted">Ẩm thực tinh tuyển với thực đơn giao thoa địa phương và quốc tế.</p>
+          </article>
+
+          <article class="amenity-card card reveal">
+            <span class="amenity-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M3 14C5.5 14 5.5 11 8 11C10.5 11 10.5 14 13 14C15.5 14 15.5 11 18 11C20.5 11 20.5 14 23 14" stroke-width="1.8" stroke-linecap="round" />
+                <path d="M3 18C5.5 18 5.5 15 8 15C10.5 15 10.5 18 13 18C15.5 18 15.5 15 18 15C20.5 15 20.5 18 23 18" stroke-width="1.8" stroke-linecap="round" />
+              </svg>
+            </span>
+            <h3>Hồ bơi</h3>
+            <p class="text-muted">Không gian thư giãn với mặt nước tĩnh, ghế nghỉ và ánh sáng dịu nhẹ.</p>
+          </article>
+
+          <article class="amenity-card card reveal">
+            <span class="amenity-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 21C12 21 5 16.5 5 10.5C5 7.462 7.462 5 10.5 5C11.693 5 12.796 5.379 13.695 6.024C14.594 5.379 15.697 5 16.89 5C19.928 5 22.39 7.462 22.39 10.5C22.39 16.5 15.39 21 15.39 21H12Z" stroke-width="1.8" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <h3>Spa</h3>
+            <p class="text-muted">Liệu trình thư giãn giúp phục hồi năng lượng và tái tạo cảm xúc.</p>
+          </article>
+
+          <article class="amenity-card card reveal">
+            <span class="amenity-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 9L10 6L12 8L14 6L17 9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M5 18H19" stroke-width="1.8" stroke-linecap="round" />
+                <path d="M7 18V12H17V18" stroke-width="1.8" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <h3>Gym</h3>
+            <p class="text-muted">Khu tập hiện đại, đủ tiện ích cho những buổi vận động cân bằng.</p>
+          </article>
+
+          <article class="amenity-card card reveal">
+            <span class="amenity-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M3 14L12 6L21 14" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M5 12V19H19V12" stroke-width="1.8" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <h3>Đưa đón sân bay</h3>
+            <p class="text-muted">Dịch vụ kết nối nhanh chóng, kín đáo và đúng giờ cho mọi lịch trình.</p>
+          </article>
+
+          <article class="amenity-card card reveal">
+            <span class="amenity-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 12C7.5 8.5 16.5 8.5 20 12" stroke-width="1.8" stroke-linecap="round" />
+                <path d="M7 15C9.5 12.5 14.5 12.5 17 15" stroke-width="1.8" stroke-linecap="round" />
+                <path d="M12 18.5H12.01" stroke-width="2.4" stroke-linecap="round" />
+              </svg>
+            </span>
+            <h3>Wifi tốc độ cao</h3>
+            <p class="text-muted">Kết nối ổn định cho cả nhu cầu làm việc, họp trực tuyến và giải trí.</p>
+          </article>
+
+          <article class="amenity-card card reveal">
+            <span class="amenity-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 20V9C6 7.895 6.895 7 8 7H16C17.105 7 18 7.895 18 9V20" stroke-width="1.8" stroke-linejoin="round" />
+                <path d="M9 7V5C9 3.895 9.895 3 11 3H13C14.105 3 15 3.895 15 5V7" stroke-width="1.8" stroke-linejoin="round" />
+                <path d="M9.5 12H14.5" stroke-width="1.8" stroke-linecap="round" />
+                <path d="M9.5 16H14.5" stroke-width="1.8" stroke-linecap="round" />
+              </svg>
+            </span>
+            <h3>Lễ tân 24/7</h3>
+            <p class="text-muted">Luôn sẵn sàng hỗ trợ check-in muộn, tư vấn lịch trình và nhu cầu phát sinh.</p>
+          </article>
+
+          <article class="amenity-card card reveal">
+            <span class="amenity-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 18H19" stroke-width="1.8" stroke-linecap="round" />
+                <path d="M6 18V12C6 10.343 7.343 9 9 9H15C16.657 9 18 10.343 18 12V18" stroke-width="1.8" stroke-linejoin="round" />
+                <path d="M9 9V6H15V9" stroke-width="1.8" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <h3>Dịch vụ phòng</h3>
+            <p class="text-muted">Phục vụ riêng tư, nhanh gọn và tinh tế ngay tại không gian lưu trú của bạn.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===============================
+         Highlighted Experience
+    ================================ -->
+    <section class="section experience">
+      <div class="container experience__grid">
+        <div class="reveal reveal--left">
+          <span class="section-tag">Trải nghiệm nổi bật</span>
+          <h2 class="section-title">Một kỳ nghỉ không chỉ đẹp, mà còn đủ yên để bạn thật sự tái tạo năng lượng.</h2>
+          <p class="section-description">
+            Từ mùi hương dịu nhẹ tại sảnh, ánh sáng buổi sớm trong phòng, những món ăn được phục vụ đúng thời điểm
+            cho đến cảm giác trở về sau một ngày dài, mọi chi tiết đều được thiết kế để bạn cảm thấy được nâng niu.
+          </p>
+
+          <div class="experience__list">
+            <div class="experience__item">
+              <span>01</span>
+              <div>
+                <strong>Nghỉ dưỡng tinh tế</strong>
+                <p>Không gian giàu chiều sâu, tối ưu sự thư giãn và riêng tư cho từng kiểu lưu trú.</p>
+              </div>
+            </div>
+            <div class="experience__item">
+              <span>02</span>
+              <div>
+                <strong>Dịch vụ cá nhân hóa</strong>
+                <p>Chăm sóc nhu cầu riêng từ khâu đón tiếp, lưu trú đến trải nghiệm ẩm thực và di chuyển.</p>
+              </div>
+            </div>
+            <div class="experience__item">
+              <span>03</span>
+              <div>
+                <strong>Cảm hứng nghỉ dưỡng cao cấp</strong>
+                <p>Thư thái, chỉn chu và đủ sang trọng để trở thành điểm dừng chân bạn muốn quay lại.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="experience__note reveal reveal--right">
+          <strong>Tailored Stay</strong>
+          <p>
+            Tối ưu cho cặp đôi, gia đình hoặc khách công tác cần một không gian chỉn chu,
+            sang trọng và vận hành mượt mà từ check-in đến check-out.
+          </p>
+          <div class="hero__actions" style="margin-bottom:0;">
+            <a class="btn btn--primary" href="#quick-contact">Liên hệ</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===============================
+         Gallery
+    ================================ -->
+    <section class="section" id="gallery">
+      <div class="container">
+        <div class="section-header section-header--center reveal">
+          <span class="section-tag">Thư viện ảnh</span>
+          <h2 class="section-title">Khám phá vẻ đẹp tinh tế trong từng không gian</h2>
+          <p class="section-description">
+            Từ khu sảnh, phòng nghỉ, hồ bơi đến các góc thư giãn, mọi chi tiết đều được sắp đặt để tạo nên dấu ấn boutique cao cấp.
+          </p>
+        </div>
+
+        <div class="gallery__grid">
+          <figure class="gallery__item gallery__item--a reveal reveal--scale">
+            <img
+              src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80"
+              alt="Ngoại cảnh khách sạn"
+              loading="lazy"
+            >
+            <figcaption class="gallery__caption">Mặt tiền khách sạn thanh lịch</figcaption>
+          </figure>
+          <figure class="gallery__item gallery__item--b reveal reveal--scale">
+            <img
+              src="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?auto=format&fit=crop&w=1200&q=80"
+              alt="Phòng nghỉ ấm áp"
+              loading="lazy"
+            >
+            <figcaption class="gallery__caption">Phòng nghỉ ánh sáng tự nhiên</figcaption>
+          </figure>
+          <figure class="gallery__item gallery__item--c reveal reveal--scale">
+            <img
+              src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=900&q=80"
+              alt="Không gian hồ bơi"
+              loading="lazy"
+            >
+            <figcaption class="gallery__caption">Hồ bơi thư giãn</figcaption>
+          </figure>
+          <figure class="gallery__item gallery__item--d reveal reveal--scale">
+            <img
+              src="https://images.unsplash.com/photo-1551776235-dde6d4829808?auto=format&fit=crop&w=900&q=80"
+              alt="Nhà hàng trong khách sạn"
+              loading="lazy"
+            >
+            <figcaption class="gallery__caption">Ẩm thực tinh tuyển</figcaption>
+          </figure>
+          <figure class="gallery__item gallery__item--e reveal reveal--scale">
+            <img
+              src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1200&q=80"
+              alt="Không gian thư giãn ngoài trời"
+              loading="lazy"
+            >
+            <figcaption class="gallery__caption">Khu lounge ngoài trời</figcaption>
+          </figure>
+          <figure class="gallery__item gallery__item--f reveal reveal--scale">
+            <img
+              src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80"
+              alt="Suite cao cấp"
+              loading="lazy"
+            >
+            <figcaption class="gallery__caption">Suite được hoàn thiện tinh tế</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===============================
+         Testimonials
+    ================================ -->
+    <section class="section" id="testimonials">
+      <div class="container">
+        <div class="section-header section-header--center reveal">
+          <span class="section-tag">Đánh giá khách hàng</span>
+          <h2 class="section-title">Những cảm nhận chân thật sau mỗi kỳ lưu trú</h2>
+          <p class="section-description">
+            Chất lượng không chỉ đến từ thiết kế đẹp mà còn từ cảm giác an tâm, dễ chịu và được phục vụ đúng mong đợi.
+          </p>
+        </div>
+
+        <div class="testimonials__carousel">
+          <div class="testimonials__controls" aria-label="Điều hướng đánh giá">
+            <button class="testimonials__control" type="button" data-testimonial-prev aria-label="Đánh giá trước">‹</button>
+            <button class="testimonials__control" type="button" data-testimonial-next aria-label="Đánh giá tiếp theo">›</button>
+          </div>
+
+          <div class="testimonials__grid">
+            <article class="testimonial card reveal">
+              <div class="testimonial__stars">★★★★★</div>
+              <blockquote>
+                “Không gian rất sang nhưng vẫn ấm áp. Mọi chi tiết từ mùi hương, ánh sáng đến thái độ phục vụ đều tạo cảm giác rất cao cấp.”
+              </blockquote>
+              <div class="testimonial__author">
+                <strong>Ngọc Anh</strong>
+                <span>Khách công tác</span>
+              </div>
+            </article>
+
+            <article class="testimonial card reveal">
+              <div class="testimonial__stars">★★★★★</div>
+              <blockquote>
+                “Gia đình mình đặc biệt thích sự riêng tư và yên tĩnh ở đây. Phòng rộng, dịch vụ tốt, nhân viên hỗ trợ rất nhanh và tinh tế.”
+              </blockquote>
+              <div class="testimonial__author">
+                <strong>Minh Quân</strong>
+                <span>Khách gia đình</span>
+              </div>
+            </article>
+
+            <article class="testimonial card reveal">
+              <div class="testimonial__stars">★★★★★</div>
+              <blockquote>
+                “Một lựa chọn tuyệt vời cho kỳ nghỉ cặp đôi. Mọi thứ vừa đủ sang trọng, lãng mạn và rất dễ khiến mình muốn quay lại.”
+              </blockquote>
+              <div class="testimonial__author">
+                <strong>Thảo Vy</strong>
+                <span>Khách cặp đôi</span>
+              </div>
+            </article>
+
+            <article class="testimonial card reveal">
+              <div class="testimonial__stars">★★★★★</div>
+              <blockquote>
+                “Vị trí thuận tiện, phòng sạch và yên tĩnh. Mình đặc biệt thích cách nhân viên chủ động hỗ trợ lịch trình trong suốt kỳ nghỉ.”
+              </blockquote>
+              <div class="testimonial__author">
+                <strong>Hải Nam</strong>
+                <span>Khách công tác</span>
+              </div>
+            </article>
+
+            <article class="testimonial card reveal">
+              <div class="testimonial__stars">★★★★★</div>
+              <blockquote>
+                “Không gian nhiều cây xanh, cảm giác rất thư giãn. Đây là lựa chọn hợp lý cho một kỳ nghỉ ngắn nhưng vẫn đủ riêng tư.”
+              </blockquote>
+              <div class="testimonial__author">
+                <strong>Linh Chi</strong>
+                <span>Khách nghỉ dưỡng</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===============================
+         Final CTA / Contact
+    ================================ -->
+    <section class="section cta" id="contact">
+      <div class="container">
+        <div class="cta__panel reveal">
+          <div class="cta__grid">
+            <div>
+              <span class="section-tag" style="background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.16); color: #fff;">Liên hệ tư vấn</span>
+              <h2 class="cta__title">Sẵn sàng cho một kỳ nghỉ thanh lịch, thư thái và đậm chất riêng?</h2>
+              <p class="section-description" style="color: rgba(255,255,255,0.82);">
+                Liên hệ ngay hôm nay để nhận tư vấn hạng phòng phù hợp, ưu đãi theo mùa và trải nghiệm dịch vụ cá nhân hóa tại <strong>Sea Vibe Boutique Hotel</strong>.
+              </p>
+              <div class="hero__actions">
+                <a class="btn btn--light" href="#quick-contact">Gửi yêu cầu</a>
+              </div>
+            </div>
+
+            <aside class="cta__card" id="footer-contact">
+              <strong style="font-size:1.15rem;">Thông tin thương hiệu</strong>
+              <ul class="contact-list">
+                <li>
+                  <strong>Tên khách sạn</strong>
+                  <span>Sea Vibe Boutique Hotel</span>
+                </li>
+                <li>
+                  <strong>Địa chỉ</strong>
+                  <span>[Địa chỉ]</span>
+                </li>
+                <li>
+                  <strong>Hotline</strong>
+                  <span>[Số điện thoại]</span>
+                </li>
+                <li>
+                  <strong>Email</strong>
+                  <span>[Email]</span>
+                </li>
+                <li>
+                  <strong>Zalo / Facebook / Website</strong>
+                  <span>[Link liên hệ]</span>
+                </li>
+              </ul>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===============================
+       Footer
+  ================================ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="fade-divider"></div>
+      <div class="site-footer__grid">
+        <div>
+          <a href="#home" class="brand" aria-label="Sea Vibe Boutique Hotel">
+            <img class="brand__logo" src="assets/sea-vibe-logo-inline.png" alt="Sea Vibe Boutique Hotel">
+          </a>
+          <p class="text-muted" style="margin-top: 1rem; max-width: 340px;">
+            Không gian lưu trú boutique sang trọng, nơi trải nghiệm nghỉ dưỡng được thiết kế tinh tế cho từng vị khách.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="footer__title">Liên hệ</h3>
+          <ul class="footer-contact">
+            <li>[Địa chỉ]</li>
+            <li>[Số điện thoại]</li>
+            <li>[Email]</li>
+            <li>[Link liên hệ]</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="footer__title">Menu nhanh</h3>
+          <ul class="footer-links">
+            <li><a href="#about">Giới thiệu</a></li>
+            <li><a href="#rooms">Hạng phòng</a></li>
+            <li><a href="#amenities">Tiện nghi</a></li>
+            <li><a href="#gallery">Thư viện</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="footer__title">Mạng xã hội</h3>
+          <div class="footer-social">
+            <a href="#contact" aria-label="Liên hệ nhanh">
+              <svg viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden="true">
+                <path d="M4 6H20V18H4V6Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" />
+                <path d="M4 9H20" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+              </svg>
+            </a>
+            <a href="#contact" aria-label="Zalo">
+              <svg viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden="true">
+                <path d="M5 6H19V18H5V6Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" />
+                <path d="M8 10H16M8 14H13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+              </svg>
+            </a>
+            <a href="#contact" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden="true">
+                <path d="M14 8H16V4H13C10.791 4 9 5.791 9 8V10H7V14H9V20H13V14H16L17 10H13V8C13 7.448 13.448 7 14 7V8Z" fill="currentColor" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="site-footer__bottom">
+        <p>© 2026 Sea Vibe Boutique Hotel. All rights reserved.</p>
+        <p>Thiết kế landing page theo phong cách boutique hotel sang trọng.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ===============================
+    // Header state on scroll
+    // ===============================
+    const header = document.querySelector(".site-header");
+    const nav = document.querySelector(".site-nav");
+    const navToggle = document.querySelector(".nav-toggle");
+    const navLinks = document.querySelectorAll(".site-nav a");
+
+    const toggleHeaderState = () => {
+      header.classList.toggle("is-scrolled", window.scrollY > 24);
+    };
+
+    toggleHeaderState();
+    window.addEventListener("scroll", toggleHeaderState, { passive: true });
+
+    // ===============================
+    // Mobile navigation
+    // ===============================
+    const closeMenu = () => {
+      nav.classList.remove("is-open");
+      document.body.classList.remove("menu-open");
+      navToggle.setAttribute("aria-expanded", "false");
+    };
+
+    navToggle.addEventListener("click", () => {
+      const isOpen = nav.classList.toggle("is-open");
+      document.body.classList.toggle("menu-open", isOpen);
+      navToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    navLinks.forEach((link) => {
+      link.addEventListener("click", closeMenu);
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 860) {
+        closeMenu();
+      }
+    });
+
+    // ===============================
+    // Reveal on scroll
+    // ===============================
+    const revealElements = document.querySelectorAll(".reveal");
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.18,
+        rootMargin: "0px 0px -30px 0px"
+      }
+    );
+
+    revealElements.forEach((element) => revealObserver.observe(element));
+
+    // ===============================
+    // Hero parallax
+    // ===============================
+    const parallaxItems = document.querySelectorAll("[data-parallax]");
+    let parallaxTicking = false;
+
+    const updateParallax = () => {
+      const scrollY = window.scrollY;
+
+      parallaxItems.forEach((item) => {
+        const speed = Number(item.dataset.speed || 0.1);
+        item.style.transform = "translate3d(0," + scrollY * speed * -0.25 + "px,0)";
+      });
+
+      parallaxTicking = false;
+    };
+
+    const requestParallax = () => {
+      if (!parallaxTicking && window.innerWidth > 860) {
+        window.requestAnimationFrame(updateParallax);
+        parallaxTicking = true;
+      }
+    };
+
+    window.addEventListener("scroll", requestParallax, { passive: true });
+    updateParallax();
+
+    // ===============================
+    // Testimonials carousel controls
+    // ===============================
+    const testimonialsGrid = document.querySelector(".testimonials__grid");
+    const testimonialPrev = document.querySelector("[data-testimonial-prev]");
+    const testimonialNext = document.querySelector("[data-testimonial-next]");
+    let isDraggingTestimonials = false;
+    let testimonialStartX = 0;
+    let testimonialScrollStart = 0;
+
+    const getTestimonialStep = () => {
+      const firstCard = testimonialsGrid?.querySelector(".testimonial");
+      if (!firstCard) return 0;
+
+      const gridStyles = window.getComputedStyle(testimonialsGrid);
+      const gap = Number.parseFloat(gridStyles.columnGap || gridStyles.gap || "0");
+      return firstCard.getBoundingClientRect().width + gap;
+    };
+
+    const scrollTestimonials = (direction) => {
+      if (!testimonialsGrid) return;
+
+      const step = getTestimonialStep();
+      const maxScroll = testimonialsGrid.scrollWidth - testimonialsGrid.clientWidth;
+      const isAtStart = testimonialsGrid.scrollLeft <= 2;
+      const isAtEnd = testimonialsGrid.scrollLeft >= maxScroll - 2;
+
+      if (direction > 0 && isAtEnd) {
+        testimonialsGrid.scrollTo({ left: 0, behavior: "smooth" });
+        return;
+      }
+
+      if (direction < 0 && isAtStart) {
+        testimonialsGrid.scrollTo({ left: maxScroll, behavior: "smooth" });
+        return;
+      }
+
+      testimonialsGrid.scrollBy({ left: step * direction, behavior: "smooth" });
+    };
+
+    const snapTestimonialsToNearest = () => {
+      if (!testimonialsGrid) return;
+
+      const step = getTestimonialStep();
+      if (!step) return;
+
+      const maxScroll = testimonialsGrid.scrollWidth - testimonialsGrid.clientWidth;
+      const nearestIndex = Math.round(testimonialsGrid.scrollLeft / step);
+      const nearestScroll = Math.min(maxScroll, Math.max(0, nearestIndex * step));
+
+      testimonialsGrid.scrollTo({ left: nearestScroll, behavior: "smooth" });
+    };
+
+    testimonialPrev?.addEventListener("click", () => scrollTestimonials(-1));
+    testimonialNext?.addEventListener("click", () => scrollTestimonials(1));
+
+    testimonialsGrid?.addEventListener("pointerdown", (event) => {
+      if (event.pointerType === "touch") return;
+
+      isDraggingTestimonials = true;
+      testimonialStartX = event.clientX;
+      testimonialScrollStart = testimonialsGrid.scrollLeft;
+      testimonialsGrid.classList.add("is-dragging");
+      testimonialsGrid.setPointerCapture(event.pointerId);
+      event.preventDefault();
+    });
+
+    testimonialsGrid?.addEventListener("pointermove", (event) => {
+      if (!isDraggingTestimonials) return;
+
+      const distance = event.clientX - testimonialStartX;
+      testimonialsGrid.scrollLeft = testimonialScrollStart - distance * 1.15;
+      event.preventDefault();
+    });
+
+    const stopTestimonialsDrag = (event) => {
+      if (!isDraggingTestimonials) return;
+
+      isDraggingTestimonials = false;
+      testimonialsGrid.classList.remove("is-dragging");
+      if (testimonialsGrid.hasPointerCapture(event.pointerId)) {
+        testimonialsGrid.releasePointerCapture(event.pointerId);
+      }
+
+      snapTestimonialsToNearest();
+    };
+
+    testimonialsGrid?.addEventListener("pointerup", stopTestimonialsDrag);
+    testimonialsGrid?.addEventListener("pointercancel", stopTestimonialsDrag);
+    testimonialsGrid?.addEventListener("mouseleave", () => {
+      if (isDraggingTestimonials) {
+        snapTestimonialsToNearest();
+      }
+
+      isDraggingTestimonials = false;
+      testimonialsGrid.classList.remove("is-dragging");
+    });
+
+    // ===============================
+    // Quick contact form interaction
+    // ===============================
+    const contactForm = document.getElementById("contactForm");
+    const contactName = document.getElementById("contactName");
+    const contactPhone = document.getElementById("contactPhone");
+    const contactNeed = document.getElementById("contactNeed");
+    const contactFeedback = document.getElementById("contactFeedback");
+
+    contactForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const name = contactName.value.trim();
+      const phone = contactPhone.value.trim();
+
+      contactFeedback.classList.remove("is-error");
+
+      if (!name || !phone) {
+        contactFeedback.textContent = "Vui lòng nhập họ tên và số điện thoại để khách sạn có thể liên hệ lại.";
+        contactFeedback.classList.add("is-error");
+        return;
+      }
+
+      contactFeedback.textContent =
+        "Cảm ơn " +
+        name +
+        ". Đội ngũ Sea Vibe Boutique Hotel đã nhận yêu cầu " +
+        contactNeed.value.toLowerCase() +
+        " và sẽ liên hệ qua " +
+        phone +
+        " trong thời gian sớm nhất.";
+    });
+  </script>
+</body>
+</html>
