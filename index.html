@@ -71,6 +71,10 @@
       overflow: hidden;
     }
 
+    body.modal-open {
+      overflow: hidden;
+    }
+
     img {
       display: block;
       width: 100%;
@@ -632,6 +636,75 @@
 
     .booking__feedback.is-error {
       color: #a53a27;
+    }
+
+    /* ===============================
+       Contact Modal
+    =============================== */
+    .contact-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      display: grid;
+      place-items: center;
+      padding: 1.2rem;
+      background: rgba(23, 50, 71, 0.32);
+      backdrop-filter: blur(14px);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition:
+        opacity var(--transition),
+        visibility var(--transition);
+    }
+
+    .contact-modal.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .contact-modal__dialog {
+      position: relative;
+      width: min(1180px, 100%);
+      transform: translateY(18px) scale(0.98);
+      transition: transform var(--transition);
+    }
+
+    .contact-modal.is-open .contact-modal__dialog {
+      transform: translateY(0) scale(1);
+    }
+
+    .contact-modal__close {
+      position: absolute;
+      top: 1.1rem;
+      right: 1.1rem;
+      z-index: 2;
+      width: 2.8rem;
+      height: 2.8rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      border: 1px solid rgba(23, 50, 71, 0.12);
+      background: rgba(255, 250, 243, 0.86);
+      color: var(--color-navy);
+      box-shadow: var(--shadow-soft);
+      transition:
+        transform var(--transition),
+        background var(--transition),
+        color var(--transition);
+    }
+
+    .contact-modal__close:hover {
+      transform: translateY(-2px);
+      background: var(--color-accent);
+      color: var(--color-white);
+    }
+
+    .contact-modal__close svg {
+      width: 1.15rem;
+      height: 1.15rem;
     }
 
     /* ===============================
@@ -1537,6 +1610,17 @@
         height: 3.7rem;
       }
 
+      .contact-modal {
+        align-items: start;
+        padding: 5rem 0.75rem 1rem;
+        overflow-y: auto;
+      }
+
+      .contact-modal__close {
+        top: 0.85rem;
+        right: 0.85rem;
+      }
+
       .room-card__footer {
         flex-direction: column;
         align-items: stretch;
@@ -1844,7 +1928,7 @@
           </p>
 
           <div class="hero__actions">
-            <a class="btn btn--primary" href="#quick-contact">Đặt phòng ngay</a>
+            <a class="btn btn--primary" href="#contact-modal" data-open-contact-modal>Đặt phòng ngay</a>
             <a class="btn btn--secondary" href="#rooms">Khám phá phòng</a>
           </div>
 
@@ -1885,54 +1969,6 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===============================
-         Quick Contact Form
-    ================================ -->
-    <section class="booking section" id="quick-contact">
-      <div class="container">
-        <div class="booking__card reveal reveal--scale">
-          <div class="booking__top">
-            <div>
-              <h2 class="booking__title">Liên hệ tư vấn lưu trú</h2>
-              <p class="booking__hint">Để lại thông tin, đội ngũ khách sạn sẽ tư vấn hạng phòng và ưu đãi phù hợp.</p>
-            </div>
-            <span class="section-tag">Personal Support</span>
-          </div>
-
-          <form class="booking__form" id="contactForm">
-            <div class="field">
-              <label for="contactName">Họ và tên</label>
-              <input type="text" id="contactName" name="name" placeholder="Tên của bạn" required>
-            </div>
-
-            <div class="field">
-              <label for="contactPhone">Số điện thoại</label>
-              <input type="tel" id="contactPhone" name="phone" placeholder="[Số điện thoại]" required>
-            </div>
-
-            <div class="field">
-              <label for="contactEmail">Email</label>
-              <input type="email" id="contactEmail" name="email" placeholder="[Email]">
-            </div>
-
-            <div class="field">
-              <label for="contactNeed">Nhu cầu</label>
-              <select id="contactNeed" name="need">
-                <option value="Tư vấn hạng phòng">Tư vấn hạng phòng</option>
-                <option value="Báo giá lưu trú">Báo giá lưu trú</option>
-                <option value="Tư vấn sự kiện">Tư vấn sự kiện</option>
-                <option value="Dịch vụ nghỉ dưỡng">Dịch vụ nghỉ dưỡng</option>
-              </select>
-            </div>
-
-            <button class="btn btn--primary" type="submit">Gửi liên hệ</button>
-          </form>
-
-          <p class="booking__feedback" id="contactFeedback" aria-live="polite"></p>
         </div>
       </div>
     </section>
@@ -2060,7 +2096,7 @@
 
               <div class="room-card__footer">
                 <span class="text-muted">Giá / đêm, đã gồm bữa sáng</span>
-                <a class="btn btn--primary" href="#quick-contact">Liên hệ</a>
+                <a class="btn btn--primary" href="#contact-modal" data-open-contact-modal>Liên hệ</a>
               </div>
             </div>
           </article>
@@ -2113,7 +2149,7 @@
 
               <div class="room-card__footer">
                 <span class="text-muted">Giá / đêm, linh hoạt theo mùa</span>
-                <a class="btn btn--primary" href="#quick-contact">Liên hệ</a>
+                <a class="btn btn--primary" href="#contact-modal" data-open-contact-modal>Liên hệ</a>
               </div>
             </div>
           </article>
@@ -2166,7 +2202,7 @@
 
               <div class="room-card__footer">
                 <span class="text-muted">Giá / đêm, phù hợp gia đình</span>
-                <a class="btn btn--primary" href="#quick-contact">Liên hệ</a>
+                <a class="btn btn--primary" href="#contact-modal" data-open-contact-modal>Liên hệ</a>
               </div>
             </div>
           </article>
@@ -2328,7 +2364,7 @@
             sang trọng và vận hành mượt mà từ check-in đến check-out.
           </p>
           <div class="hero__actions" style="margin-bottom:0;">
-            <a class="btn btn--primary" href="#quick-contact">Liên hệ</a>
+            <a class="btn btn--primary" href="#contact-modal" data-open-contact-modal>Liên hệ</a>
           </div>
         </div>
       </div>
@@ -2493,7 +2529,7 @@
                 Liên hệ ngay hôm nay để nhận tư vấn hạng phòng phù hợp, ưu đãi theo mùa và trải nghiệm dịch vụ cá nhân hóa tại <strong>Sea Vibe Boutique Hotel</strong>.
               </p>
               <div class="hero__actions">
-                <a class="btn btn--light" href="#quick-contact">Gửi yêu cầu</a>
+                <a class="btn btn--light" href="#contact-modal" data-open-contact-modal>Gửi yêu cầu</a>
               </div>
             </div>
 
@@ -2527,6 +2563,60 @@
       </div>
     </section>
   </main>
+
+  <!-- ===============================
+       Contact Modal
+  ================================ -->
+  <div class="contact-modal" id="contact-modal" aria-hidden="true">
+    <div class="contact-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
+      <button class="contact-modal__close" type="button" aria-label="Đóng form liên hệ" data-close-contact-modal>
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </svg>
+      </button>
+
+      <div class="booking__card">
+        <div class="booking__top">
+          <div>
+            <h2 class="booking__title" id="contactModalTitle">Liên hệ tư vấn lưu trú</h2>
+            <p class="booking__hint">Để lại thông tin, đội ngũ khách sạn sẽ tư vấn hạng phòng và ưu đãi phù hợp.</p>
+          </div>
+          <span class="section-tag">Personal Support</span>
+        </div>
+
+        <form class="booking__form" id="contactForm">
+          <div class="field">
+            <label for="contactName">Họ và tên</label>
+            <input type="text" id="contactName" name="name" placeholder="Tên của bạn" required>
+          </div>
+
+          <div class="field">
+            <label for="contactPhone">Số điện thoại</label>
+            <input type="tel" id="contactPhone" name="phone" placeholder="[Số điện thoại]" required>
+          </div>
+
+          <div class="field">
+            <label for="contactEmail">Email</label>
+            <input type="email" id="contactEmail" name="email" placeholder="[Email]">
+          </div>
+
+          <div class="field">
+            <label for="contactNeed">Nhu cầu</label>
+            <select id="contactNeed" name="need">
+              <option value="Tư vấn hạng phòng">Tư vấn hạng phòng</option>
+              <option value="Báo giá lưu trú">Báo giá lưu trú</option>
+              <option value="Tư vấn sự kiện">Tư vấn sự kiện</option>
+              <option value="Dịch vụ nghỉ dưỡng">Dịch vụ nghỉ dưỡng</option>
+            </select>
+          </div>
+
+          <button class="btn btn--primary" type="submit">Gửi liên hệ</button>
+        </form>
+
+        <p class="booking__feedback" id="contactFeedback" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
 
   <!-- ===============================
        Footer
@@ -2789,6 +2879,56 @@
 
       isDraggingTestimonials = false;
       testimonialsGrid.classList.remove("is-dragging");
+    });
+
+    // ===============================
+    // Contact modal
+    // ===============================
+    const contactModal = document.getElementById("contact-modal");
+    const contactModalDialog = contactModal?.querySelector(".contact-modal__dialog");
+    const contactModalClose = document.querySelector("[data-close-contact-modal]");
+    const contactModalTriggers = document.querySelectorAll("[data-open-contact-modal]");
+    let lastFocusedElement = null;
+
+    const openContactModal = () => {
+      if (!contactModal) return;
+
+      lastFocusedElement = document.activeElement;
+      contactModal.classList.add("is-open");
+      contactModal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+      window.requestAnimationFrame(() => contactName?.focus());
+    };
+
+    const closeContactModal = () => {
+      if (!contactModal) return;
+
+      contactModal.classList.remove("is-open");
+      contactModal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+      lastFocusedElement?.focus?.();
+    };
+
+    contactModalTriggers.forEach((trigger) => {
+      trigger.addEventListener("click", (event) => {
+        event.preventDefault();
+        closeMenu();
+        openContactModal();
+      });
+    });
+
+    contactModalClose?.addEventListener("click", closeContactModal);
+
+    contactModal?.addEventListener("click", (event) => {
+      if (!contactModalDialog?.contains(event.target)) {
+        closeContactModal();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && contactModal?.classList.contains("is-open")) {
+        closeContactModal();
+      }
     });
 
     // ===============================
