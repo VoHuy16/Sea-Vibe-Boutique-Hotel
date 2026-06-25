@@ -2630,6 +2630,15 @@
       link.addEventListener("click", closeMenu);
     });
 
+    document.querySelectorAll('a[href="#home"]').forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        closeMenu();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        history.replaceState(null, "", window.location.pathname + window.location.search);
+      });
+    });
+
     window.addEventListener("resize", () => {
       if (window.innerWidth > 860) {
         closeMenu();
