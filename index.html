@@ -666,7 +666,7 @@
 
     .contact-modal__dialog {
       position: relative;
-      width: min(1180px, 100%);
+      width: min(440px, 100%);
       transform: translateY(18px) scale(0.98);
       transition: transform var(--transition);
     }
@@ -705,6 +705,39 @@
     .contact-modal__close svg {
       width: 1.15rem;
       height: 1.15rem;
+    }
+
+    .contact-modal .booking__card {
+      padding: 1.55rem;
+      border-radius: 2rem;
+    }
+
+    .contact-modal .booking__top {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+      padding-right: 3.1rem;
+      margin-bottom: 1.35rem;
+    }
+
+    .contact-modal .booking__title {
+      font-size: 2.35rem;
+      line-height: 1;
+    }
+
+    .contact-modal .booking__hint {
+      max-width: 34rem;
+      line-height: 1.65;
+    }
+
+    .contact-modal .booking__form {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .contact-modal .btn {
+      width: 100%;
+      min-height: 3.65rem;
     }
 
     /* ===============================
@@ -1611,14 +1644,23 @@
       }
 
       .contact-modal {
-        align-items: start;
-        padding: 5rem 0.75rem 1rem;
+        align-items: center;
+        padding: 0.75rem;
         overflow-y: auto;
       }
 
       .contact-modal__close {
         top: 0.85rem;
         right: 0.85rem;
+      }
+
+      .contact-modal .booking__card {
+        padding: 1.35rem;
+        border-radius: 1.8rem;
+      }
+
+      .contact-modal .booking__title {
+        font-size: 2rem;
       }
 
       .room-card__footer {
