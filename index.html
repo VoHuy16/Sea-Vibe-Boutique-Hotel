@@ -67,11 +67,8 @@
       overflow-x: hidden;
     }
 
-    body.menu-open {
-      overflow: hidden;
-    }
-
-    body.modal-open {
+    body.menu-open,
+    body.brand-modal-open {
       overflow: hidden;
     }
 
@@ -293,6 +290,7 @@
       inset: 0 0 auto;
       height: var(--header-height);
       z-index: 1000;
+      background: linear-gradient(180deg, rgba(9, 22, 34, 0.5), rgba(9, 22, 34, 0));
       transition:
         background var(--transition),
         border-color var(--transition),
@@ -350,8 +348,16 @@
       position: relative;
       font-size: 0.96rem;
       font-weight: 700;
+      color: rgba(255, 250, 243, 0.96);
+      text-shadow: 0 3px 14px rgba(0, 0, 0, 0.42);
+      transition:
+        color var(--transition),
+        text-shadow var(--transition);
+    }
+
+    .site-header.is-scrolled .site-nav__list a {
       color: var(--color-navy);
-      transition: color var(--transition);
+      text-shadow: none;
     }
 
     .site-nav__list a::after {
@@ -396,39 +402,140 @@
        Hero Section
     =============================== */
     .hero {
-      padding: calc(var(--header-height) + 3.6rem) 0 4rem;
+      --hero-drag: 0px;
+      --hero-offset: 0%;
       position: relative;
-      overflow: clip;
+      min-height: 100svh;
+      padding: calc(var(--header-height) + 5.8rem) 0 4.8rem;
+      display: grid;
+      align-items: end;
+      overflow: hidden;
+      isolation: isolate;
+      background: var(--color-navy);
+      color: var(--color-white);
+      cursor: grab;
+      touch-action: pan-y;
     }
 
-    .hero::before {
+    .hero.is-dragging {
+      cursor: grabbing;
+      user-select: none;
+    }
+
+    .hero__slider {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      overflow: hidden;
+    }
+
+    .hero__track {
+      display: flex;
+      height: 100%;
+      transform: translate3d(0, 0, 0);
+      transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+    }
+
+    .hero.is-dragging .hero__track {
+      transition: none;
+    }
+
+    .hero__slide {
+      position: relative;
+      flex: 0 0 100%;
+      overflow: hidden;
+      background: var(--color-navy);
+    }
+
+    .hero__slide::before {
+      content: "";
+      position: absolute;
+      inset: -3%;
+      background-image: var(--hero-image);
+      background-position: center;
+      background-size: cover;
+      transform: scale(1.08);
+      transition: transform 1400ms cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+    }
+
+    .hero__slide.is-active::before {
+      transform: scale(1.02);
+    }
+
+    .hero.is-dragging .hero__slide::before {
+      transition: none;
+    }
+
+    .hero__slide:nth-child(1) {
+      --hero-image: url("assets/sea-vibe-building.webp");
+    }
+
+    .hero__slide:nth-child(2) {
+      --hero-image: url("https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1800&q=82");
+    }
+
+    .hero__slide:nth-child(3) {
+      --hero-image: url("https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1800&q=82");
+    }
+
+    .hero::after {
       content: "";
       position: absolute;
       inset: 0;
+      z-index: -1;
       background:
-        radial-gradient(circle at 18% 18%, rgba(212, 122, 58, 0.14), transparent 32%),
-        radial-gradient(circle at 88% 12%, rgba(23, 50, 71, 0.14), transparent 28%);
+        radial-gradient(circle at 20% 38%, rgba(212, 122, 58, 0.4), transparent 34%),
+        linear-gradient(90deg, rgba(8, 19, 30, 0.94) 0%, rgba(8, 19, 30, 0.76) 44%, rgba(8, 19, 30, 0.28) 100%),
+        linear-gradient(180deg, rgba(8, 19, 30, 0.34) 0%, rgba(8, 19, 30, 0.16) 42%, rgba(8, 19, 30, 0.86) 100%);
       pointer-events: none;
     }
 
     .hero__grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-      gap: 3.2rem;
-      align-items: center;
       position: relative;
       z-index: 1;
     }
 
     .hero__content {
-      max-width: 620px;
+      max-width: 760px;
+    }
+
+    .hero__content > * {
+      opacity: 0;
+      animation: heroTextRise 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .hero__content > *:nth-child(2) {
+      animation-delay: 0.14s;
+    }
+
+    .hero__content > *:nth-child(3) {
+      animation-delay: 0.28s;
+    }
+
+    .hero__content > *:nth-child(4) {
+      animation-delay: 0.42s;
+    }
+
+    .hero .title {
+      color: var(--color-white);
+      max-width: 780px;
+      text-shadow:
+        0 4px 18px rgba(0, 0, 0, 0.42),
+        0 26px 64px rgba(0, 0, 0, 0.48);
     }
 
     .hero__description {
       margin-top: 1.4rem;
       font-size: 1.04rem;
-      color: var(--color-muted);
-      max-width: 580px;
+      color: rgba(255, 250, 243, 0.94);
+      max-width: 640px;
+      text-shadow: 0 12px 34px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero__description strong {
+      color: var(--color-white);
     }
 
     .hero__actions {
@@ -439,112 +546,78 @@
       margin: 2rem 0 2.3rem;
     }
 
+    .hero .btn--secondary {
+      background: rgba(255, 250, 243, 0.14);
+      border-color: rgba(255, 255, 255, 0.42);
+      color: var(--color-white);
+      backdrop-filter: blur(18px);
+    }
+
+    .hero .btn--secondary:hover {
+      background: rgba(255, 250, 243, 0.24);
+      border-color: rgba(255, 255, 255, 0.72);
+    }
+
     .hero__highlights {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 1rem;
-      max-width: 640px;
+      max-width: 720px;
     }
 
     .hero__highlight {
       padding: 1.15rem 1rem;
       border-radius: var(--radius-md);
-      background: rgba(255, 255, 255, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.55);
-      box-shadow: var(--shadow-soft);
-      backdrop-filter: blur(16px);
+      background: linear-gradient(145deg, rgba(255, 250, 243, 0.18), rgba(255, 255, 255, 0.08));
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.24);
+      backdrop-filter: blur(18px);
     }
 
     .hero__highlight strong {
       display: block;
       font-size: 1.35rem;
-      color: var(--color-navy);
+      color: var(--color-white);
     }
 
     .hero__highlight span {
       font-size: 0.92rem;
-      color: var(--color-muted);
+      color: rgba(255, 250, 243, 0.78);
     }
 
-    .hero__visual {
-      position: relative;
-      min-height: 640px;
-      display: grid;
+    .hero__banner-dots {
+      display: flex;
       align-items: center;
+      gap: 0.55rem;
+      margin-top: 1.35rem;
     }
 
-    .hero__parallax {
-      max-width: 560px;
-      margin-left: auto;
-    }
-
-    .hero__photo-wrap {
+    .hero__banner-dots span {
       position: relative;
-      animation: floatHero 7.5s ease-in-out infinite;
-      will-change: transform;
+      width: 2.4rem;
+      height: 0.24rem;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255, 250, 243, 0.28);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
     }
 
-    .hero__photo-wrap::before {
+    .hero__banner-dots span::after {
       content: "";
       position: absolute;
-      width: 13rem;
-      height: 13rem;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(212, 122, 58, 0.24), transparent 68%);
-      top: -2rem;
-      right: -2rem;
-      z-index: -1;
+      inset: 0;
+      border-radius: inherit;
+      background: var(--color-accent);
+      transform: scaleX(0);
+      transform-origin: left;
     }
 
-    .hero__photo {
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-      box-shadow: var(--shadow-strong);
-      border: 1px solid rgba(255, 255, 255, 0.58);
-      position: relative;
+    .hero__banner-dots span.is-active::after {
+      animation: heroDotFill 4.2s linear forwards;
     }
 
-    .hero__photo img {
-      aspect-ratio: 0.84 / 1;
-      object-fit: cover;
-      object-position: center;
-      transform: scale(1.02);
-    }
-
-    .hero__mini-card,
-    .hero__badge {
-      position: absolute;
-      background: rgba(255, 250, 243, 0.82);
-      border: 1px solid rgba(255, 255, 255, 0.56);
-      backdrop-filter: blur(16px);
-      border-radius: 1.4rem;
-      box-shadow: var(--shadow-medium);
-    }
-
-    .hero__mini-card {
-      left: -1.6rem;
-      bottom: 2rem;
-      padding: 1.1rem 1.2rem;
-      min-width: 220px;
-    }
-
-    .hero__mini-card strong,
-    .hero__badge strong {
-      color: var(--color-navy);
-      display: block;
-    }
-
-    .hero__mini-card span,
-    .hero__badge span {
-      font-size: 0.92rem;
-      color: var(--color-muted);
-    }
-
-    .hero__badge {
-      top: 2rem;
-      right: -1.4rem;
-      padding: 1rem 1.15rem;
-      text-align: center;
+    .hero.is-dragging .hero__banner-dots span.is-active::after {
+      animation-play-state: paused;
     }
 
     /* ===============================
@@ -641,103 +714,136 @@
     /* ===============================
        Contact Modal
     =============================== */
-    .contact-modal {
+    .brand-modal {
       position: fixed;
       inset: 0;
-      z-index: 2000;
+      z-index: 300;
       display: grid;
       place-items: center;
       padding: 1.2rem;
-      background: rgba(23, 50, 71, 0.32);
-      backdrop-filter: blur(14px);
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
       transition:
-        opacity var(--transition),
-        visibility var(--transition);
+        opacity 0.34s ease,
+        visibility 0.34s ease;
     }
 
-    .contact-modal.is-open {
+    .brand-modal.is-open {
       opacity: 1;
       visibility: visible;
       pointer-events: auto;
     }
 
-    .contact-modal__dialog {
-      position: relative;
-      width: min(440px, 100%);
-      transform: translateY(18px) scale(0.98);
-      transition: transform var(--transition);
-    }
-
-    .contact-modal.is-open .contact-modal__dialog {
-      transform: translateY(0) scale(1);
-    }
-
-    .contact-modal__close {
+    .brand-modal__backdrop {
       position: absolute;
-      top: 1.1rem;
-      right: 1.1rem;
+      inset: 0;
+      background:
+        radial-gradient(circle at 72% 24%, rgba(212, 122, 58, 0.3), transparent 28%),
+        rgba(9, 22, 34, 0.66);
+      backdrop-filter: blur(12px);
+    }
+
+    .brand-modal__dialog {
+      position: relative;
+      width: min(520px, calc(100vw - 2rem));
+      overflow: hidden;
+      padding: 1.65rem;
+      border-radius: 1.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background:
+        linear-gradient(135deg, rgba(23, 50, 71, 0.94) 0%, rgba(82, 97, 99, 0.88) 52%, rgba(212, 122, 58, 0.88) 100%);
+      color: var(--color-white);
+      box-shadow: 0 34px 90px rgba(9, 22, 34, 0.34);
+      transform: translateY(22px) scale(0.96);
+      transition:
+        transform 0.42s cubic-bezier(0.19, 1, 0.22, 1),
+        box-shadow 0.42s ease;
+    }
+
+    .brand-modal.is-open .brand-modal__dialog {
+      transform: translateY(0) scale(1);
+      box-shadow: 0 42px 100px rgba(9, 22, 34, 0.42);
+    }
+
+    .brand-modal__dialog::before,
+    .brand-modal__dialog::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .brand-modal__dialog::before {
+      width: 14rem;
+      height: 14rem;
+      right: -5rem;
+      bottom: -5rem;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .brand-modal__dialog::after {
+      width: 9rem;
+      height: 9rem;
+      left: -4rem;
+      top: -4rem;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .brand-modal__content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .brand-modal__close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
       z-index: 2;
-      width: 2.8rem;
-      height: 2.8rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 999px;
-      border: 1px solid rgba(23, 50, 71, 0.12);
-      background: rgba(255, 250, 243, 0.86);
+      display: inline-grid;
+      place-items: center;
+      width: 2.7rem;
+      height: 2.7rem;
+      border-radius: 50%;
       color: var(--color-navy);
-      box-shadow: var(--shadow-soft);
+      background: rgba(255, 250, 243, 0.92);
+      box-shadow: 0 14px 34px rgba(9, 22, 34, 0.2);
       transition:
         transform var(--transition),
-        background var(--transition),
-        color var(--transition);
+        background var(--transition);
     }
 
-    .contact-modal__close:hover {
-      transform: translateY(-2px);
-      background: var(--color-accent);
-      color: var(--color-white);
+    .brand-modal__close:hover {
+      transform: rotate(90deg) scale(1.04);
+      background: var(--color-white);
     }
 
-    .contact-modal__close svg {
-      width: 1.15rem;
-      height: 1.15rem;
+    .brand-modal__title {
+      padding-right: 3.2rem;
+      font-size: 1.25rem;
+      line-height: 1.3;
+      margin-bottom: 1.25rem;
     }
 
-    .contact-modal .booking__card {
-      padding: 1.55rem;
-      border-radius: 2rem;
-    }
-
-    .contact-modal .booking__top {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1rem;
-      padding-right: 3.1rem;
-      margin-bottom: 1.35rem;
-    }
-
-    .contact-modal .booking__title {
-      font-size: 2.35rem;
-      line-height: 1;
-    }
-
-    .contact-modal .booking__hint {
-      max-width: 34rem;
-      line-height: 1.65;
-    }
-
-    .contact-modal .booking__form {
-      grid-template-columns: 1fr;
+    .brand-modal__list {
+      display: grid;
       gap: 1rem;
     }
 
-    .contact-modal .btn {
-      width: 100%;
-      min-height: 3.65rem;
+    .brand-modal__list strong {
+      display: block;
+      margin-bottom: 0.22rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.76);
+    }
+
+    .brand-modal__list span {
+      display: block;
+      font-size: 1rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.96);
     }
 
     /* ===============================
@@ -835,16 +941,46 @@
       overflow: hidden;
     }
 
+    .rooms__carousel {
+      position: relative;
+    }
+
     .rooms__grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      display: flex;
       gap: 1.5rem;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      cursor: grab;
+      user-select: none;
+      touch-action: pan-x;
+      padding: 0.2rem 0.05rem 1rem;
+    }
+
+    .rooms__grid::-webkit-scrollbar {
+      display: none;
+    }
+
+    .rooms__grid.is-dragging {
+      cursor: grabbing;
+      scroll-behavior: auto;
+      scroll-snap-type: none;
+    }
+
+    .rooms__grid.is-dragging .room-card {
+      transform: scale(0.985);
+      transition: transform 0.18s ease;
     }
 
     .room-card {
       overflow: hidden;
+      flex: 0 0 calc((100% - 3.25rem) / 3.5);
       display: flex;
       flex-direction: column;
+      min-width: 0;
+      scroll-snap-align: start;
       transition:
         transform var(--transition),
         box-shadow var(--transition);
@@ -949,6 +1085,60 @@
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
+    }
+
+    .rooms__controls {
+      position: absolute;
+      inset: 50% auto auto 0;
+      z-index: 3;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+      transform: translateY(-50%);
+    }
+
+    .rooms__control {
+      width: 3rem;
+      height: 3rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      border: 1px solid rgba(23, 50, 71, 0.12);
+      background: rgba(255, 250, 243, 0.84);
+      color: var(--color-navy);
+      box-shadow: var(--shadow-soft);
+      font-size: 1.35rem;
+      font-weight: 800;
+      pointer-events: auto;
+      transition:
+        transform var(--transition),
+        background var(--transition),
+        color var(--transition),
+        border-color var(--transition);
+    }
+
+    .rooms__control:first-child {
+      transform: translateX(-1.5rem);
+    }
+
+    .rooms__control:last-child {
+      transform: translateX(1.5rem);
+    }
+
+    .rooms__control:hover {
+      border-color: rgba(212, 122, 58, 0.32);
+      background: var(--color-accent);
+      color: var(--color-white);
+    }
+
+    .rooms__control:first-child:hover {
+      transform: translateX(-1.5rem) translateY(-2px);
+    }
+
+    .rooms__control:last-child:hover {
+      transform: translateX(1.5rem) translateY(-2px);
     }
 
     /* ===============================
@@ -1445,12 +1635,26 @@
     /* ===============================
        Keyframes & Utility
     =============================== */
-    @keyframes floatHero {
-      0%, 100% {
-        transform: translateY(0);
+    @keyframes heroDotFill {
+      0% {
+        transform: scaleX(0);
       }
-      50% {
-        transform: translateY(-14px);
+
+      100% {
+        transform: scaleX(1);
+      }
+    }
+
+    @keyframes heroTextRise {
+      0% {
+        opacity: 0;
+        transform: translateY(28px);
+        filter: blur(8px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
       }
     }
 
@@ -1479,24 +1683,14 @@
         grid-template-columns: 1fr;
       }
 
-      .hero__visual {
-        min-height: auto;
-      }
-
-      .hero__photo-wrap {
-        max-width: 100%;
-        margin: 0 auto;
-      }
-
-      .hero__photo img {
-        aspect-ratio: 1.08 / 1;
-      }
-
       .booking__form,
-      .rooms__grid,
       .amenities__grid,
       .testimonials__grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .room-card {
+        flex-basis: calc((100% - 1.5rem) / 2.15);
       }
 
       .gallery__item--a,
@@ -1573,6 +1767,7 @@
         border-radius: 1rem;
         background: rgba(255, 255, 255, 0.56);
         color: var(--color-navy);
+        text-shadow: none;
         box-shadow: inset 0 0 0 1px rgba(23, 50, 71, 0.04);
       }
 
@@ -1610,10 +1805,10 @@
       }
 
       .hero {
-        padding-top: calc(var(--header-height) + 2.8rem);
+        min-height: 92svh;
+        padding-top: calc(var(--header-height) + 4.2rem);
       }
 
-      .hero__highlights,
       .about__feature-list {
         grid-template-columns: 1fr;
       }
@@ -1625,13 +1820,6 @@
         align-items: flex-start;
       }
 
-      .hero__mini-card {
-        left: 0.8rem;
-      }
-
-      .hero__badge {
-        right: 0.8rem;
-      }
     }
 
     @media (max-width: 640px) {
@@ -1643,24 +1831,25 @@
         height: 3.7rem;
       }
 
-      .contact-modal {
-        align-items: center;
+      .brand-modal {
         padding: 0.75rem;
+        align-items: end;
+      }
+
+      .brand-modal__dialog {
+        width: 100%;
+        max-height: calc(100svh - 1.5rem);
         overflow-y: auto;
-      }
-
-      .contact-modal__close {
-        top: 0.85rem;
-        right: 0.85rem;
-      }
-
-      .contact-modal .booking__card {
         padding: 1.35rem;
-        border-radius: 1.8rem;
+        border-radius: 1.6rem;
       }
 
-      .contact-modal .booking__title {
-        font-size: 2rem;
+      .brand-modal__title {
+        font-size: 1.12rem;
+      }
+
+      .brand-modal__list {
+        gap: 0.85rem;
       }
 
       .room-card__footer {
@@ -1668,21 +1857,194 @@
         align-items: stretch;
       }
 
+      .hero {
+        --hero-mobile-stats-space: 6.05rem;
+        width: 100vw;
+        margin-inline: calc(50% - 50vw);
+        min-height: auto;
+        padding: calc(var(--header-height) + 1.35rem) 0 0.8rem;
+        background: transparent;
+      }
+
+      .hero__content {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .hero__slider,
+      .hero::after {
+        inset: 0 0 var(--hero-mobile-stats-space);
+      }
+
+      .hero__slider,
+      .hero__track,
+      .hero__slide {
+        width: 100vw;
+      }
+
+      .hero__slide::before {
+        inset: 0;
+        background-position: center center;
+        background-size: cover;
+      }
+
+      .hero::after {
+        background:
+          radial-gradient(circle at 28% 32%, rgba(212, 122, 58, 0.34), transparent 36%),
+          linear-gradient(180deg, rgba(9, 22, 34, 0.34) 0%, rgba(9, 22, 34, 0.54) 42%, rgba(9, 22, 34, 0.9) 100%);
+      }
+
+      .hero .title {
+        font-size: clamp(1.58rem, 6.3vw, 2rem);
+        line-height: 0.98;
+      }
+
+      .hero__description {
+        margin-top: 0.72rem;
+        font-size: 0.82rem;
+        line-height: 1.52;
+      }
+
       .hero__actions {
         flex-wrap: nowrap;
         align-items: stretch;
+        gap: 0.62rem;
+        margin: 0.95rem 0 0.9rem;
       }
 
       .hero__actions .btn {
-        flex: 1 1 0;
+        flex: 0 1 auto;
         min-width: 0;
-        padding-inline: 0.85rem;
+        min-height: 2.85rem;
+        padding: 0.7rem 0.62rem;
+        font-size: 0.82rem;
       }
 
-      .hero__highlights,
-      .booking__form,
-      .rooms__grid {
+      .booking__form {
         grid-template-columns: 1fr;
+      }
+
+      .rooms__grid {
+        gap: 0.7rem;
+        padding: 0.15rem 0.05rem 1rem;
+        scroll-padding-left: 0.05rem;
+      }
+
+      .rooms__controls {
+        display: none;
+      }
+
+      .room-card {
+        flex-basis: calc((100% - 0.7rem) / 1.52);
+        border-radius: 1.25rem;
+      }
+
+      .room-card__media img {
+        aspect-ratio: 1.08 / 0.78;
+      }
+
+      .room-card__badge {
+        left: 0.75rem;
+        top: 0.75rem;
+        padding: 0.4rem 0.68rem;
+        font-size: 0.72rem;
+      }
+
+      .room-card__body {
+        padding: 0.88rem;
+        gap: 0.78rem;
+      }
+
+      .room-card__head {
+        gap: 0.65rem;
+      }
+
+      .room-card__title {
+        font-size: 1.38rem;
+      }
+
+      .room-card .text-muted {
+        font-size: 0.82rem;
+        line-height: 1.55;
+      }
+
+      .room-card__price {
+        font-size: 0.84rem;
+      }
+
+      .room-card__price small {
+        font-size: 0.62rem;
+      }
+
+      .room-card__meta {
+        gap: 0.5rem;
+        font-size: 0.78rem;
+      }
+
+      .room-card__meta svg {
+        width: 0.82rem;
+        height: 0.82rem;
+      }
+
+      .room-card .pill-list {
+        gap: 0.45rem;
+      }
+
+      .room-card .pill-list li {
+        padding: 0.48rem 0.62rem;
+        font-size: 0.76rem;
+      }
+
+      .room-card__footer {
+        gap: 0.65rem;
+      }
+
+      .room-card__footer .btn {
+        min-height: 2.8rem;
+        padding: 0.72rem 1rem;
+        font-size: 0.82rem;
+      }
+
+      .hero__highlights {
+        order: 4;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.45rem;
+        max-width: 100%;
+        margin-top: 0.65rem;
+      }
+
+      .hero__highlight {
+        min-height: 4.55rem;
+        padding: 0.72rem 0.55rem;
+        border-radius: 1rem;
+        background: rgba(255, 250, 243, 0.86);
+        border-color: rgba(255, 255, 255, 0.72);
+        box-shadow: 0 18px 42px rgba(23, 50, 71, 0.14);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .hero__highlight strong {
+        color: var(--color-navy);
+        font-size: clamp(0.96rem, 4.1vw, 1.16rem);
+        line-height: 1;
+      }
+
+      .hero__highlight span {
+        margin-top: 0.34rem;
+        color: var(--color-muted);
+        font-size: clamp(0.6rem, 2.45vw, 0.72rem);
+        line-height: 1.35;
+      }
+
+      .hero__banner-dots {
+        order: 3;
+        margin-top: 0.2rem;
+      }
+
+      .hero__banner-dots span {
+        width: 2rem;
       }
 
       .testimonials__grid {
@@ -1748,60 +2110,6 @@
       .amenity-card .text-muted {
         font-size: 0.9rem;
         line-height: 1.55;
-      }
-
-      .hero__visual {
-        padding-bottom: 0;
-      }
-
-      .hero__parallax {
-        width: 100%;
-        transform: none !important;
-      }
-
-      .hero__photo {
-        border-radius: 1.65rem;
-      }
-
-      .hero__photo img {
-        aspect-ratio: 0.84 / 1;
-        transform: none;
-      }
-
-      .hero__photo-wrap {
-        display: block;
-        position: relative;
-        padding-bottom: 0;
-        animation: none;
-      }
-
-      .hero__mini-card,
-      .hero__badge {
-        position: absolute;
-        z-index: 2;
-        padding: 1.25rem 1.3rem;
-        border-radius: 1.35rem;
-        background: rgba(255, 250, 243, 0.9);
-        box-shadow: 0 16px 38px rgba(23, 50, 71, 0.12);
-      }
-
-      .hero__mini-card {
-        left: clamp(-1.25rem, -3vw, -0.65rem);
-        right: clamp(-1.25rem, -3vw, -0.65rem);
-        bottom: 1.9rem;
-        min-width: 0;
-      }
-
-      .hero__badge {
-        top: 1.8rem;
-        right: clamp(-1.15rem, -2.6vw, -0.5rem);
-        width: min(calc(100% - 3.4rem), 23rem);
-        text-align: center;
-      }
-
-      .hero__mini-card strong,
-      .hero__badge strong {
-        margin-bottom: 0.35rem;
       }
 
       .about__copy {
@@ -1879,6 +2187,34 @@
       }
 
       @media (max-width: 420px) {
+        .hero {
+          --hero-mobile-stats-space: 5.4rem;
+          padding-top: calc(var(--header-height) + 1rem);
+        }
+
+        .hero .title {
+          font-size: clamp(1.45rem, 6vw, 1.76rem);
+        }
+
+        .hero__description {
+          font-size: 0.78rem;
+        }
+
+        .hero__highlights {
+          gap: 0.36rem;
+        }
+
+        .hero__highlight {
+          min-height: 4.25rem;
+          padding: 0.62rem 0.44rem;
+          border-radius: 0.9rem;
+        }
+
+        .hero__highlight span {
+          font-size: 0.58rem;
+          line-height: 1.28;
+        }
+
         .about__visual {
           min-height: 560px;
         }
@@ -1924,6 +2260,28 @@
         opacity: 1;
         transform: none;
       }
+
+      .hero__content > * {
+        opacity: 1;
+        transform: none;
+        filter: none;
+      }
+
+      .hero__track {
+        transition: none;
+      }
+
+      .hero__slide::before {
+        transform: scale(1.04);
+      }
+
+      .hero__banner-dots span::after {
+        transform: scaleX(0);
+      }
+
+      .hero__banner-dots span.is-active::after {
+        transform: scaleX(1);
+      }
     }
   </style>
 </head>
@@ -1952,7 +2310,7 @@
           <li><a href="#gallery">Thư viện</a></li>
           <li><a href="#testimonials">Đánh giá</a></li>
         </ul>
-        <a class="btn btn--primary site-nav__cta" href="#contact">Liên hệ</a>
+        <a class="btn btn--primary site-nav__cta" href="#brand-info-modal" data-brand-modal-open>Liên hệ</a>
       </nav>
     </div>
   </header>
@@ -1962,16 +2320,22 @@
          Hero Section
     ================================ -->
     <section class="hero section">
+      <div class="hero__slider" aria-hidden="true" data-hero-slider>
+        <div class="hero__track" data-hero-track>
+          <div class="hero__slide is-active"></div>
+          <div class="hero__slide"></div>
+          <div class="hero__slide"></div>
+        </div>
+      </div>
       <div class="container hero__grid">
-        <div class="hero__content reveal reveal--left">
+        <div class="hero__content">
           <h1 class="title">Chạm vào trải nghiệm lưu trú đẳng cấp, riêng tư và đầy tinh tế.</h1>
           <p class="hero__description">
             Tại <strong>Sea Vibe Boutique Hotel</strong>, Mỗi khoảnh khắc đều được chăm chút tỉ mỉ để mang đến một kỳ nghỉ sang trọng và thư thái, giúp bạn lưu giữ những kỷ niệm đáng nhớ.
           </p>
 
           <div class="hero__actions">
-            <a class="btn btn--primary" href="#contact-modal" data-open-contact-modal>Đặt phòng ngay</a>
-            <a class="btn btn--secondary" href="#rooms">Khám phá phòng</a>
+            <a class="btn btn--primary" href="#rooms">Khám phá phòng</a>
           </div>
 
           <div class="hero__highlights">
@@ -1989,28 +2353,12 @@
             </div>
           </div>
 
-        </div>
-
-        <div class="hero__visual reveal reveal--right">
-          <div class="hero__parallax" data-parallax data-speed="0.12">
-            <div class="hero__photo-wrap">
-              <div class="hero__photo">
-                <img
-                  src="assets/sea-vibe-building.webp"
-                  alt="Sea Vibe Boutique Hotel"
-                  loading="eager"
-                >
-              </div>
-              <div class="hero__mini-card">
-                <strong>Suite hướng phố & hồ bơi</strong>
-                <span>Thiết kế mềm mại, ánh sáng tự nhiên và tiện nghi cao cấp cho kỳ nghỉ trọn vẹn.</span>
-              </div>
-              <div class="hero__badge">
-                <strong>Private Retreat</strong>
-                <span>Không gian tinh gọn, riêng tư và giàu cảm hứng</span>
-              </div>
-            </div>
+          <div class="hero__banner-dots" aria-hidden="true">
+            <span class="is-active"></span>
+            <span></span>
+            <span></span>
           </div>
+
         </div>
       </div>
     </section>
@@ -2089,7 +2437,13 @@
           </p>
         </div>
 
-        <div class="rooms__grid">
+        <div class="rooms__carousel">
+          <div class="rooms__controls" aria-label="Điều hướng hạng phòng">
+            <button class="rooms__control" type="button" data-room-prev aria-label="Hạng phòng trước">‹</button>
+            <button class="rooms__control" type="button" data-room-next aria-label="Hạng phòng tiếp theo">›</button>
+          </div>
+
+          <div class="rooms__grid">
           <article class="room-card card reveal reveal--scale">
             <div class="room-card__media">
               <img
@@ -2138,7 +2492,7 @@
 
               <div class="room-card__footer">
                 <span class="text-muted">Giá / đêm, đã gồm bữa sáng</span>
-                <a class="btn btn--primary" href="#contact-modal" data-open-contact-modal>Liên hệ</a>
+                <a class="btn btn--primary" href="#brand-info-modal" data-brand-modal-open>Liên hệ</a>
               </div>
             </div>
           </article>
@@ -2191,7 +2545,7 @@
 
               <div class="room-card__footer">
                 <span class="text-muted">Giá / đêm, linh hoạt theo mùa</span>
-                <a class="btn btn--primary" href="#contact-modal" data-open-contact-modal>Liên hệ</a>
+                <a class="btn btn--primary" href="#brand-info-modal" data-brand-modal-open>Liên hệ</a>
               </div>
             </div>
           </article>
@@ -2244,10 +2598,323 @@
 
               <div class="room-card__footer">
                 <span class="text-muted">Giá / đêm, phù hợp gia đình</span>
-                <a class="btn btn--primary" href="#contact-modal" data-open-contact-modal>Liên hệ</a>
+                <a class="btn btn--primary" href="#brand-info-modal" data-brand-modal-open>Liên hệ</a>
               </div>
             </div>
           </article>
+
+          <article class="room-card card reveal reveal--scale">
+            <div class="room-card__media">
+              <img
+                src="https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?auto=format&fit=crop&w=1200&q=80"
+                alt="Phòng Ocean View"
+                loading="lazy"
+              >
+              <span class="room-card__badge">Ocean View</span>
+            </div>
+            <div class="room-card__body">
+              <div class="room-card__head">
+                <div>
+                  <h3 class="room-card__title">Ocean View</h3>
+                  <p class="text-muted">Căn phòng ngập sáng với tầm nhìn hướng biển, phù hợp cho kỳ nghỉ thư thái.</p>
+                </div>
+                <div class="room-card__price">
+                  <small>Giá từ</small>
+                  3.190.000đ
+                </div>
+              </div>
+
+              <div class="room-card__meta">
+                <span>
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 7H20V19H4V7Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+                    <path d="M4 11H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                    <path d="M9 7V4H15V7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  42m²
+                </span>
+                <span>
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M5 17C8 13 16 13 19 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                    <path d="M7 12C10 9 14 9 17 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                    <path d="M10 8C11.3 7 12.7 7 14 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                  </svg>
+                  View biển
+                </span>
+              </div>
+
+              <ul class="pill-list">
+                <li>Ban công rộng</li>
+                <li>Máy pha cà phê</li>
+                <li>Smart TV</li>
+              </ul>
+
+              <div class="room-card__footer">
+                <span class="text-muted">Giá / đêm, tùy mùa lưu trú</span>
+                <a class="btn btn--primary" href="#brand-info-modal" data-brand-modal-open>Liên hệ</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="room-card card reveal reveal--scale">
+            <div class="room-card__media">
+              <img
+                src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80"
+                alt="Phòng Executive Suite"
+                loading="lazy"
+              >
+              <span class="room-card__badge">Executive</span>
+            </div>
+            <div class="room-card__body">
+              <div class="room-card__head">
+                <div>
+                  <h3 class="room-card__title">Executive Suite</h3>
+                  <p class="text-muted">Suite rộng rãi với góc làm việc riêng, phù hợp khách công tác cần sự chỉn chu.</p>
+                </div>
+                <div class="room-card__price">
+                  <small>Giá từ</small>
+                  4.790.000đ
+                </div>
+              </div>
+
+              <div class="room-card__meta">
+                <span>
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 7H20V19H4V7Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+                    <path d="M4 11H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                    <path d="M9 7V4H15V7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  62m²
+                </span>
+                <span>
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M5 8H19V18H5V8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+                    <path d="M9 8V6H15V8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                  </svg>
+                  Work lounge
+                </span>
+              </div>
+
+              <ul class="pill-list">
+                <li>Phòng khách</li>
+                <li>Bàn họp nhỏ</li>
+                <li>Late checkout</li>
+              </ul>
+
+              <div class="room-card__footer">
+                <span class="text-muted">Giá / đêm, tối ưu công tác</span>
+                <a class="btn btn--primary" href="#brand-info-modal" data-brand-modal-open>Liên hệ</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="room-card card reveal reveal--scale">
+            <div class="room-card__media">
+              <img
+                src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80"
+                alt="Phòng Honeymoon Suite"
+                loading="lazy"
+              >
+              <span class="room-card__badge">Couple Stay</span>
+            </div>
+            <div class="room-card__body">
+              <div class="room-card__head">
+                <div>
+                  <h3 class="room-card__title">Honeymoon Suite</h3>
+                  <p class="text-muted">Không gian lãng mạn với ánh sáng mềm, hoàn hảo cho kỳ nghỉ của cặp đôi.</p>
+                </div>
+                <div class="room-card__price">
+                  <small>Giá từ</small>
+                  5.190.000đ
+                </div>
+              </div>
+
+              <div class="room-card__meta">
+                <span>
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 7H20V19H4V7Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+                    <path d="M4 11H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                    <path d="M9 7V4H15V7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  58m²
+                </span>
+                <span>
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M12 20C8 17.2 5 14.7 5 11.3C5 9.2 6.6 8 8.3 8C9.7 8 10.8 8.8 12 10C13.2 8.8 14.3 8 15.7 8C17.4 8 19 9.2 19 11.3C19 14.7 16 17.2 12 20Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+                  </svg>
+                  Couple setup
+                </span>
+              </div>
+
+              <ul class="pill-list">
+                <li>Bồn tắm đôi</li>
+                <li>Hoa tươi</li>
+                <li>Welcome drink</li>
+              </ul>
+
+              <div class="room-card__footer">
+                <span class="text-muted">Giá / đêm, gói lãng mạn</span>
+                <a class="btn btn--primary" href="#brand-info-modal" data-brand-modal-open>Liên hệ</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="room-card card reveal reveal--scale">
+            <div class="room-card__media">
+              <img
+                src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=1200&q=80"
+                alt="Phòng Terrace Suite"
+                loading="lazy"
+              >
+              <span class="room-card__badge">Terrace</span>
+            </div>
+            <div class="room-card__body">
+              <div class="room-card__head">
+                <div>
+                  <h3 class="room-card__title">Terrace Suite</h3>
+                  <p class="text-muted">Suite có sân hiên riêng, lý tưởng để thưởng trà, đọc sách và ngắm hoàng hôn.</p>
+                </div>
+                <div class="room-card__price">
+                  <small>Giá từ</small>
+                  4.990.000đ
+                </div>
+              </div>
+
+              <div class="room-card__meta">
+                <span>
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 7H20V19H4V7Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+                    <path d="M4 11H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                    <path d="M9 7V4H15V7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  64m²
+                </span>
+                <span>
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 16H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                    <path d="M7 16V10H17V16" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+                    <path d="M9 10V7H15V10" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+                  </svg>
+                  Sân hiên
+                </span>
+              </div>
+
+              <ul class="pill-list">
+                <li>Outdoor lounge</li>
+                <li>Máy pha trà</li>
+                <li>Loa bluetooth</li>
+              </ul>
+
+              <div class="room-card__footer">
+                <span class="text-muted">Giá / đêm, có sân hiên riêng</span>
+                <a class="btn btn--primary" href="#brand-info-modal" data-brand-modal-open>Liên hệ</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="room-card card reveal reveal--scale">
+            <div class="room-card__media">
+              <img
+                src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1200&q=80"
+                alt="Phòng Villa Room"
+                loading="lazy"
+              >
+              <span class="room-card__badge">Villa Room</span>
+            </div>
+            <div class="room-card__body">
+              <div class="room-card__head">
+                <div>
+                  <h3 class="room-card__title">Villa Room</h3>
+                  <p class="text-muted">Không gian biệt lập, riêng tư và rộng rãi cho nhóm bạn hoặc gia đình nhỏ.</p>
+                </div>
+                <div class="room-card__price">
+                  <small>Giá từ</small>
+                  6.490.000đ
+                </div>
+              </div>
+
+              <div class="room-card__meta">
+                <span>
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 7H20V19H4V7Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+                    <path d="M4 11H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                    <path d="M9 7V4H15V7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  82m²
+                </span>
+                <span>
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 20V10L12 4L20 10V20" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+                    <path d="M9 20V14H15V20" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+                  </svg>
+                  Riêng tư
+                </span>
+              </div>
+
+              <ul class="pill-list">
+                <li>2 phòng ngủ</li>
+                <li>Bếp nhỏ</li>
+                <li>Khu sinh hoạt</li>
+              </ul>
+
+              <div class="room-card__footer">
+                <span class="text-muted">Giá / đêm, phù hợp nhóm nhỏ</span>
+                <a class="btn btn--primary" href="#brand-info-modal" data-brand-modal-open>Liên hệ</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="room-card card reveal reveal--scale">
+            <div class="room-card__media">
+              <img
+                src="https://images.unsplash.com/photo-1591088398332-8a7791972843?auto=format&fit=crop&w=1200&q=80"
+                alt="Phòng Penthouse Retreat"
+                loading="lazy"
+              >
+              <span class="room-card__badge">Penthouse</span>
+            </div>
+            <div class="room-card__body">
+              <div class="room-card__head">
+                <div>
+                  <h3 class="room-card__title">Penthouse Retreat</h3>
+                  <p class="text-muted">Không gian cao cấp nhất với lounge rộng, tầm nhìn mở và dịch vụ ưu tiên.</p>
+                </div>
+                <div class="room-card__price">
+                  <small>Giá từ</small>
+                  8.900.000đ
+                </div>
+              </div>
+
+              <div class="room-card__meta">
+                <span>
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 7H20V19H4V7Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+                    <path d="M4 11H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                    <path d="M9 7V4H15V7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  108m²
+                </span>
+                <span>
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M12 4L14 9L19 9.5L15 13L16.2 18L12 15.2L7.8 18L9 13L5 9.5L10 9L12 4Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+                  </svg>
+                  VIP service
+                </span>
+              </div>
+
+              <ul class="pill-list">
+                <li>Private lounge</li>
+                <li>Butler service</li>
+                <li>Airport pickup</li>
+              </ul>
+
+              <div class="room-card__footer">
+                <span class="text-muted">Giá / đêm, trải nghiệm đặc biệt</span>
+                <a class="btn btn--primary" href="#brand-info-modal" data-brand-modal-open>Liên hệ</a>
+              </div>
+            </div>
+          </article>
+        </div>
         </div>
       </div>
     </section>
@@ -2406,7 +3073,7 @@
             sang trọng và vận hành mượt mà từ check-in đến check-out.
           </p>
           <div class="hero__actions" style="margin-bottom:0;">
-            <a class="btn btn--primary" href="#contact-modal" data-open-contact-modal>Liên hệ</a>
+            <a class="btn btn--primary" href="#brand-info-modal" data-brand-modal-open>Liên hệ</a>
           </div>
         </div>
       </div>
@@ -2570,9 +3237,6 @@
               <p class="section-description" style="color: rgba(255,255,255,0.82);">
                 Liên hệ ngay hôm nay để nhận tư vấn hạng phòng phù hợp, ưu đãi theo mùa và trải nghiệm dịch vụ cá nhân hóa tại <strong>Sea Vibe Boutique Hotel</strong>.
               </p>
-              <div class="hero__actions">
-                <a class="btn btn--light" href="#contact-modal" data-open-contact-modal>Gửi yêu cầu</a>
-              </div>
             </div>
 
             <aside class="cta__card" id="footer-contact">
@@ -2607,57 +3271,43 @@
   </main>
 
   <!-- ===============================
-       Contact Modal
+       Brand Info Popup
   ================================ -->
-  <div class="contact-modal" id="contact-modal" aria-hidden="true">
-    <div class="contact-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
-      <button class="contact-modal__close" type="button" aria-label="Đóng form liên hệ" data-close-contact-modal>
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+  <div class="brand-modal" id="brand-info-modal" aria-hidden="true">
+    <div class="brand-modal__backdrop" data-brand-modal-close></div>
+    <section class="brand-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="brand-modal-title" tabindex="-1">
+      <button class="brand-modal__close" type="button" aria-label="Đóng popup" data-brand-modal-close>
+        <svg viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden="true">
+          <path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
         </svg>
       </button>
 
-      <div class="booking__card">
-        <div class="booking__top">
-          <div>
-            <h2 class="booking__title" id="contactModalTitle">Liên hệ tư vấn lưu trú</h2>
-            <p class="booking__hint">Để lại thông tin, đội ngũ khách sạn sẽ tư vấn hạng phòng và ưu đãi phù hợp.</p>
-          </div>
-          <span class="section-tag">Personal Support</span>
-        </div>
-
-        <form class="booking__form" id="contactForm">
-          <div class="field">
-            <label for="contactName">Họ và tên</label>
-            <input type="text" id="contactName" name="name" placeholder="Tên của bạn" required>
-          </div>
-
-          <div class="field">
-            <label for="contactPhone">Số điện thoại</label>
-            <input type="tel" id="contactPhone" name="phone" placeholder="[Số điện thoại]" required>
-          </div>
-
-          <div class="field">
-            <label for="contactEmail">Email</label>
-            <input type="email" id="contactEmail" name="email" placeholder="[Email]">
-          </div>
-
-          <div class="field">
-            <label for="contactNeed">Nhu cầu</label>
-            <select id="contactNeed" name="need">
-              <option value="Tư vấn hạng phòng">Tư vấn hạng phòng</option>
-              <option value="Báo giá lưu trú">Báo giá lưu trú</option>
-              <option value="Tư vấn sự kiện">Tư vấn sự kiện</option>
-              <option value="Dịch vụ nghỉ dưỡng">Dịch vụ nghỉ dưỡng</option>
-            </select>
-          </div>
-
-          <button class="btn btn--primary" type="submit">Gửi liên hệ</button>
-        </form>
-
-        <p class="booking__feedback" id="contactFeedback" aria-live="polite"></p>
+      <div class="brand-modal__content">
+        <h2 class="brand-modal__title" id="brand-modal-title">Thông tin thương hiệu</h2>
+        <ul class="brand-modal__list">
+          <li>
+            <strong>Tên khách sạn</strong>
+            <span>Sea Vibe Boutique Hotel</span>
+          </li>
+          <li>
+            <strong>Địa chỉ</strong>
+            <span>[Địa chỉ]</span>
+          </li>
+          <li>
+            <strong>Hotline</strong>
+            <span>[Số điện thoại]</span>
+          </li>
+          <li>
+            <strong>Email</strong>
+            <span>[Email]</span>
+          </li>
+          <li>
+            <strong>Zalo / Facebook / Website</strong>
+            <span>[Link liên hệ]</span>
+          </li>
+        </ul>
       </div>
-    </div>
+    </section>
   </div>
 
   <!-- ===============================
@@ -2778,6 +3428,183 @@
     });
 
     // ===============================
+    // Brand information popup
+    // ===============================
+    const brandModal = document.querySelector("#brand-info-modal");
+    const brandModalDialog = brandModal?.querySelector(".brand-modal__dialog");
+    const brandModalOpeners = document.querySelectorAll("[data-brand-modal-open]");
+    const brandModalClosers = document.querySelectorAll("[data-brand-modal-close]");
+    let lastBrandModalTrigger = null;
+
+    const openBrandModal = (event) => {
+      event.preventDefault();
+      closeMenu();
+      lastBrandModalTrigger = event.currentTarget;
+      brandModal?.classList.add("is-open");
+      brandModal?.setAttribute("aria-hidden", "false");
+      document.body.classList.add("brand-modal-open");
+      window.setTimeout(() => brandModalDialog?.focus(), 80);
+    };
+
+    const closeBrandModal = () => {
+      if (!brandModal?.classList.contains("is-open")) return;
+
+      brandModal.classList.remove("is-open");
+      brandModal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("brand-modal-open");
+      lastBrandModalTrigger?.focus();
+    };
+
+    brandModalOpeners.forEach((button) => {
+      button.addEventListener("click", openBrandModal);
+    });
+
+    brandModalClosers.forEach((button) => {
+      button.addEventListener("click", closeBrandModal);
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeBrandModal();
+      }
+    });
+
+    // ===============================
+    // Hero banner carousel
+    // ===============================
+    const hero = document.querySelector(".hero");
+    const heroTrack = document.querySelector("[data-hero-track]");
+    const heroSlides = Array.from(document.querySelectorAll(".hero__slide"));
+    const heroDots = Array.from(document.querySelectorAll(".hero__banner-dots span"));
+    const heroAutoDelay = 4200;
+    let heroIndex = 0;
+    let heroAutoTimer = null;
+    let heroResumeTimer = null;
+    let heroAutoDirection = 1;
+    let isHeroDragging = false;
+    let heroStartX = 0;
+    let heroStartY = 0;
+    let heroDragX = 0;
+    let heroPointerId = null;
+
+    const setHeroTrackPosition = (dragOffset = 0) => {
+      if (!heroTrack) return;
+      heroTrack.style.transform = `translate3d(${heroIndex * -100}%, 0, 0) translate3d(${dragOffset}px, 0, 0)`;
+    };
+
+    const updateHeroSlide = (nextIndex) => {
+      if (!hero || !heroTrack || !heroSlides.length) return;
+
+      heroIndex = Math.max(0, Math.min(nextIndex, heroSlides.length - 1));
+      if (heroIndex === heroSlides.length - 1) {
+        heroAutoDirection = -1;
+      } else if (heroIndex === 0) {
+        heroAutoDirection = 1;
+      }
+
+      hero.style.setProperty("--hero-drag", "0px");
+      setHeroTrackPosition(0);
+
+      heroSlides.forEach((slide, index) => {
+        slide.classList.toggle("is-active", index === heroIndex);
+      });
+
+      heroDots.forEach((dot) => dot.classList.remove("is-active"));
+      if (heroDots[heroIndex]) {
+        void heroDots[heroIndex].offsetWidth;
+        heroDots[heroIndex].classList.add("is-active");
+      }
+    };
+
+    const stopHeroAuto = () => {
+      window.clearTimeout(heroAutoTimer);
+      heroAutoTimer = null;
+    };
+
+    const startHeroAuto = () => {
+      if (!hero || heroAutoTimer) return;
+
+      heroAutoTimer = window.setTimeout(() => {
+        heroAutoTimer = null;
+        updateHeroSlide(heroIndex + heroAutoDirection);
+        startHeroAuto();
+      }, heroAutoDelay);
+    };
+
+    const restartHeroAuto = () => {
+      stopHeroAuto();
+      window.clearTimeout(heroResumeTimer);
+      heroResumeTimer = window.setTimeout(startHeroAuto, 1600);
+    };
+
+    const finishHeroDrag = () => {
+      if (!hero || !isHeroDragging) return;
+
+      const threshold = Math.min(hero.clientWidth * 0.16, 150);
+      let nextIndex = heroIndex;
+
+      if (Math.abs(heroDragX) > threshold) {
+        if (heroDragX < 0 && heroIndex < heroSlides.length - 1) {
+          nextIndex = heroIndex + 1;
+        } else if (heroDragX > 0 && heroIndex > 0) {
+          nextIndex = heroIndex - 1;
+        }
+      }
+
+      isHeroDragging = false;
+      hero.classList.remove("is-dragging");
+
+      window.requestAnimationFrame(() => {
+        updateHeroSlide(nextIndex);
+        restartHeroAuto();
+      });
+    };
+
+    if (hero && heroTrack && heroSlides.length) {
+      updateHeroSlide(0);
+      startHeroAuto();
+
+      hero.addEventListener("pointerdown", (event) => {
+        if (event.button !== 0 || event.target.closest("a, button, input, select, textarea, label")) {
+          return;
+        }
+
+        isHeroDragging = true;
+        heroPointerId = event.pointerId;
+        heroStartX = event.clientX;
+        heroStartY = event.clientY;
+        heroDragX = 0;
+        hero.classList.add("is-dragging");
+        stopHeroAuto();
+        hero.setPointerCapture(heroPointerId);
+      });
+
+      hero.addEventListener("pointermove", (event) => {
+        if (!isHeroDragging) return;
+
+        const deltaX = event.clientX - heroStartX;
+        const deltaY = event.clientY - heroStartY;
+
+        if (Math.abs(deltaX) < 8 && Math.abs(deltaY) > Math.abs(deltaX)) {
+          return;
+        }
+
+        event.preventDefault();
+        const isEdgePull =
+          (heroIndex === 0 && deltaX > 0) ||
+          (heroIndex === heroSlides.length - 1 && deltaX < 0);
+        const adjustedDelta = isEdgePull ? deltaX * 0.28 : deltaX;
+
+        heroDragX = Math.max(Math.min(adjustedDelta, hero.clientWidth * 0.85), hero.clientWidth * -0.85);
+        hero.style.setProperty("--hero-drag", `${heroDragX}px`);
+        setHeroTrackPosition(heroDragX);
+      });
+
+      hero.addEventListener("pointerup", finishHeroDrag);
+      hero.addEventListener("pointercancel", finishHeroDrag);
+    }
+
+    // ===============================
     // Reveal on scroll
     // ===============================
     const revealElements = document.querySelectorAll(".reveal");
@@ -2802,28 +3629,128 @@
     // Hero parallax
     // ===============================
     const parallaxItems = document.querySelectorAll("[data-parallax]");
-    let parallaxTicking = false;
+    if (parallaxItems.length) {
+      let parallaxTicking = false;
 
-    const updateParallax = () => {
-      const scrollY = window.scrollY;
+      const updateParallax = () => {
+        const scrollY = window.scrollY;
 
-      parallaxItems.forEach((item) => {
-        const speed = Number(item.dataset.speed || 0.1);
-        item.style.transform = "translate3d(0," + scrollY * speed * -0.25 + "px,0)";
-      });
+        parallaxItems.forEach((item) => {
+          const speed = Number(item.dataset.speed || 0.1);
+          item.style.transform = "translate3d(0," + scrollY * speed * -0.25 + "px,0)";
+        });
 
-      parallaxTicking = false;
+        parallaxTicking = false;
+      };
+
+      const requestParallax = () => {
+        if (!parallaxTicking && window.innerWidth > 860) {
+          window.requestAnimationFrame(updateParallax);
+          parallaxTicking = true;
+        }
+      };
+
+      window.addEventListener("scroll", requestParallax, { passive: true });
+      updateParallax();
+    }
+
+    // ===============================
+    // Rooms carousel controls
+    // ===============================
+    const roomsGrid = document.querySelector(".rooms__grid");
+    const roomPrev = document.querySelector("[data-room-prev]");
+    const roomNext = document.querySelector("[data-room-next]");
+    let isDraggingRooms = false;
+    let roomStartX = 0;
+    let roomScrollStart = 0;
+
+    const getRoomStep = () => {
+      const firstCard = roomsGrid?.querySelector(".room-card");
+      if (!firstCard) return 0;
+
+      const gridStyles = window.getComputedStyle(roomsGrid);
+      const gap = Number.parseFloat(gridStyles.columnGap || gridStyles.gap || "0");
+      return firstCard.getBoundingClientRect().width + gap;
     };
 
-    const requestParallax = () => {
-      if (!parallaxTicking && window.innerWidth > 860) {
-        window.requestAnimationFrame(updateParallax);
-        parallaxTicking = true;
+    const scrollRooms = (direction) => {
+      if (!roomsGrid) return;
+
+      const step = getRoomStep();
+      const maxScroll = roomsGrid.scrollWidth - roomsGrid.clientWidth;
+      const isAtStart = roomsGrid.scrollLeft <= 2;
+      const isAtEnd = roomsGrid.scrollLeft >= maxScroll - 2;
+
+      if (direction > 0 && isAtEnd) {
+        roomsGrid.scrollTo({ left: 0, behavior: "smooth" });
+        return;
       }
+
+      if (direction < 0 && isAtStart) {
+        roomsGrid.scrollTo({ left: maxScroll, behavior: "smooth" });
+        return;
+      }
+
+      roomsGrid.scrollBy({ left: step * direction, behavior: "smooth" });
     };
 
-    window.addEventListener("scroll", requestParallax, { passive: true });
-    updateParallax();
+    const snapRoomsToNearest = () => {
+      if (!roomsGrid) return;
+
+      const step = getRoomStep();
+      if (!step) return;
+
+      const maxScroll = roomsGrid.scrollWidth - roomsGrid.clientWidth;
+      const nearestIndex = Math.round(roomsGrid.scrollLeft / step);
+      const nearestScroll = Math.min(maxScroll, Math.max(0, nearestIndex * step));
+
+      roomsGrid.scrollTo({ left: nearestScroll, behavior: "smooth" });
+    };
+
+    roomPrev?.addEventListener("click", () => scrollRooms(-1));
+    roomNext?.addEventListener("click", () => scrollRooms(1));
+
+    roomsGrid?.addEventListener("pointerdown", (event) => {
+      if (event.pointerType === "touch" || event.target.closest("a, button")) return;
+
+      isDraggingRooms = true;
+      roomStartX = event.clientX;
+      roomScrollStart = roomsGrid.scrollLeft;
+      roomsGrid.classList.add("is-dragging");
+      roomsGrid.setPointerCapture(event.pointerId);
+      event.preventDefault();
+    });
+
+    roomsGrid?.addEventListener("pointermove", (event) => {
+      if (!isDraggingRooms) return;
+
+      const distance = event.clientX - roomStartX;
+      roomsGrid.scrollLeft = roomScrollStart - distance * 1.12;
+      event.preventDefault();
+    });
+
+    const stopRoomsDrag = (event) => {
+      if (!isDraggingRooms) return;
+
+      isDraggingRooms = false;
+      roomsGrid.classList.remove("is-dragging");
+      if (roomsGrid.hasPointerCapture(event.pointerId)) {
+        roomsGrid.releasePointerCapture(event.pointerId);
+      }
+
+      snapRoomsToNearest();
+    };
+
+    roomsGrid?.addEventListener("pointerup", stopRoomsDrag);
+    roomsGrid?.addEventListener("pointercancel", stopRoomsDrag);
+    roomsGrid?.addEventListener("mouseleave", () => {
+      if (isDraggingRooms) {
+        snapRoomsToNearest();
+      }
+
+      isDraggingRooms = false;
+      roomsGrid.classList.remove("is-dragging");
+    });
 
     // ===============================
     // Testimonials carousel controls
@@ -2923,87 +3850,6 @@
       testimonialsGrid.classList.remove("is-dragging");
     });
 
-    // ===============================
-    // Contact modal
-    // ===============================
-    const contactModal = document.getElementById("contact-modal");
-    const contactModalDialog = contactModal?.querySelector(".contact-modal__dialog");
-    const contactModalClose = document.querySelector("[data-close-contact-modal]");
-    const contactModalTriggers = document.querySelectorAll("[data-open-contact-modal]");
-    let lastFocusedElement = null;
-
-    const openContactModal = () => {
-      if (!contactModal) return;
-
-      lastFocusedElement = document.activeElement;
-      contactModal.classList.add("is-open");
-      contactModal.setAttribute("aria-hidden", "false");
-      document.body.classList.add("modal-open");
-      window.requestAnimationFrame(() => contactName?.focus());
-    };
-
-    const closeContactModal = () => {
-      if (!contactModal) return;
-
-      contactModal.classList.remove("is-open");
-      contactModal.setAttribute("aria-hidden", "true");
-      document.body.classList.remove("modal-open");
-      lastFocusedElement?.focus?.();
-    };
-
-    contactModalTriggers.forEach((trigger) => {
-      trigger.addEventListener("click", (event) => {
-        event.preventDefault();
-        closeMenu();
-        openContactModal();
-      });
-    });
-
-    contactModalClose?.addEventListener("click", closeContactModal);
-
-    contactModal?.addEventListener("click", (event) => {
-      if (!contactModalDialog?.contains(event.target)) {
-        closeContactModal();
-      }
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && contactModal?.classList.contains("is-open")) {
-        closeContactModal();
-      }
-    });
-
-    // ===============================
-    // Quick contact form interaction
-    // ===============================
-    const contactForm = document.getElementById("contactForm");
-    const contactName = document.getElementById("contactName");
-    const contactPhone = document.getElementById("contactPhone");
-    const contactNeed = document.getElementById("contactNeed");
-    const contactFeedback = document.getElementById("contactFeedback");
-
-    contactForm.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const name = contactName.value.trim();
-      const phone = contactPhone.value.trim();
-
-      contactFeedback.classList.remove("is-error");
-
-      if (!name || !phone) {
-        contactFeedback.textContent = "Vui lòng nhập họ tên và số điện thoại để khách sạn có thể liên hệ lại.";
-        contactFeedback.classList.add("is-error");
-        return;
-      }
-
-      contactFeedback.textContent =
-        "Cảm ơn " +
-        name +
-        ". Đội ngũ Sea Vibe Boutique Hotel đã nhận yêu cầu " +
-        contactNeed.value.toLowerCase() +
-        " và sẽ liên hệ qua " +
-        phone +
-        " trong thời gian sớm nhất.";
-    });
   </script>
 </body>
 </html>
